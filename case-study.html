@@ -73,1122 +73,622 @@
         <h2 class="h2">1 Introduction</h2>
         <br>
         <p>
-          The last decade has seen a paradigm shift in computing infrastructure. Systems are becoming more and more
-          ephemeral, abstracted, and distributed. Innovations in computing infrastructure and software architectures
-          have yielded simpler components at higher levels of abstraction, but behind those simpler pieces lurk more
-          complex systems. Engineers are able to deploy and stitch together many more different kinds of software
-          components today, resulting in vastly increased complexity. As individual nodes in your system’s topology
-          become more decentralized, they also become more complicated to track and monitor.
+          Transitioning to a microservice architecture brings many benefits to a growing application. The scalability by component, separation of concerns, and flexibility of technology used are just some of the ways it provides immediate benefits. The main drawback of a microservice architecture is it exponentially increases the age-old problem of any technology: what if something stops working?
+        </p>
+        <br>
+        <p>
+          The question is not if something will fail, but when. What makes this worse in a microservice vs. monolith architecture is that finding the source of failure is much harder. With the increased complexity created by each additional service, every relationship and dependency, no matter how small, could be the culprit. Was it the checkout service? Inventory? Authentication? The thank-you email?
+        </p>
+        <br>
+        <p>
+          Knowing which service failed is only the first step — next is knowing why it failed. Was it due to a spike in traffic? Was it a bug in the code? Bad input from the user? 
+        </p>
+        <br>
+        <p>
+          Knowing and understanding the source of the problem is crucial. This is where telemetry data, specifically metrics and tracing, come in. With metrics, the user can see the number of requests and errors hitting their application for a given interval. With distributed tracing, the user can track how a request travels through their microservice architecture, from the moment a user clicks a button until a response is sent back to them. 
+        </p>
+        <br>
+        <p>
+          Metrics are incredibly useful to alert that there’s a problem (e.g. errors go up in metrics), and traces provide that next step to find where it took place (e.g. there was a 500 error when the user submitted their email address). The correlation between the metrics and traces makes the debugging process a lot easier, especially with multiple services working together.
+        </p>
+        <br>
+        <p>
+          Let's look at a concrete example of where this need often arises: Evo T-shirts.
         </p>
 
-        <h3>1.1 What is Dendro?</h3>
+        <h3>1.1 Evo T-Shirts</h3>
         <p>
-          Dendro is an open-source, serverless monitoring framework for small, distributed apps. Our team built Dendro
-          in order to help small teams handle the challenges of operating a distributed system.
+          Evo T-shirts, an e-commerce site, has recently skyrocketed in popularity. What started as one person’s side-hustle has now outgrown a monolithic architecture. The powers that be have decided to move to a microservice architecture for better organization. Oliver has led the team of engineers who built Evo T-shirts for years, and he continues to oversee each sub-team in their now assigned microservice. 
+        </p>
+        <h2>Diagram of Evo T-Shirts goes here</h2>
+        <br />
+        <p>
+          One day, he wakes up and finds that the site has been inundated by a stream of bad reviews overnight. What happened? Customers are complaining about not being able to buy products, and many of them sign off swearing they’ll never try the site again. While Oliver is confused, the CEO wants answers. Now.
         </p>
         <br />
         <p>
-          Dendro enables you to collect, centralize, and store log and metric data emitted by the various disparate
-          pieces of your system. With Dendro, when something goes down in production, there’s no race to SSH into a
-          dozen different nodes to figure out what’s gone wrong; all of the log data you’d use for debugging has already
-          been collected, processed and tagged with the servers and services that originated the individual records, and
-          stored in a single database for querying.
+          Oliver quickly jumps on the site and buys some t-shirts, trying to recreate the errors that customers are experiencing. Unfortunately, he doesn't get any errors, his cart is accurate, and he is able to complete his purchase without incident. He checks the status of each microservice, but they’re all running just fine. What is going on?
         </p>
         <br />
         <p>
-          All of this empowers the user to both greatly reduce costly downtime or outages, and proactively improve the
-          overall performance of their systems. Prevention is important: you want to catch problems before your users
-          do. If you’re constantly applying ad-hoc, band-aid fixes, you’re making your system more fragile instead of
-          less.
+          Several engineers on his team try recreating the problem, too. Some of them receive the same errors customers were complaining about, while others do not. They’re not sure why it’s happening for some and not others. Oliver’s last resort is to look at the logs of each microservice, hoping they’ll contain information about the alleged errors. 
         </p>
         <br />
         <p>
-          To illustrate just exactly what Dendro does, let’s use the example of a small company named NapTime.
+          His frustration mounts as he continues to scroll. The logs are endless and difficult for him to parse. He sees something about an error here and there, but it’s unclear where it’s happening or why.
         </p>
-        <br />
+        <br>
+        <p>
+          Oliver and his team would greatly benefit from an observability solution right about now. Horus would provide just that. 
+        </p>
 
-        <h3>1.2 NapTime: An Example User Story</h3>
+        <h3>1.2 What is Horus?</h3>
         <p>
-          NapTime has two engineers, and they recently completed the beta build of their sleep monitoring app.
+          Horus is an open-source observability solution for microservices. Users can generate, store, and visualize correlated telemetry data, allowing them to see the real-time health of their application. 
         </p>
         <br />
         <p>
-          Their system itself has proven to be resilient so far, thanks to its small size and simplicity.
-        </p>
-        <figure>
-          <img src="assets/images/case-study/naptime-early.png" class="case-study-image" />
-          <figcaption>Fig. 1: NapTime's beta architecture</figcaption>
-        </figure>
-        <br />
-        <p>
-          NapTime built a simple three-tier system in order to avoid premature optimization, with their web server and
-          application running on one server, and their database on another.
+          Because the metrics and traces are correlated, the user can click on a particular metric data point and view all the traces that happened in that time interval. This allows the user to easily discover where the customer of the app received an error, which makes it easier to start fixing it.
         </p>
         <br />
         <p>
-          The two engineers have been busy developing features and shipping their first few builds. When an outage or
-          critical bug pops up, it derails their development flow. NapTime doesn’t currently have a monitoring solution
-          in place, so they’re totally reliant on either hearing from users when something breaks, or coming across an
-          issue themselves by poking around the system.
-        </p>
-        <br />
-
-        <h3>1.3 An Outage at NapTime</h3>
-        <p>
-          What happens when an outage is reported? Say, for example, a couple of users reach out to say that they’re
-          trying to access their homepages but they’re just receiving a 500-level error.
-        </p>
-        <br />
-        <figure>
-          <img src="assets/images/case-study/debugging-small.gif" class="case-study-image" />
-          <figcaption>Fig. 2: How can NapTime determine what's wrong?</figcaption>
-        </figure>
-        <br />
-        <p>
-          The engineers decide on three priority debugging steps: ensure that each server in their system is up, ensure
-          that each of the services running on those servers is up, and check whether those services are sending and
-          receiving requests and responses successfully.
-        </p>
-        <br />
-        <figure>
-          <img src="assets/images/case-study/debugging-steps.gif" class="case-study-image" />
-          <figcaption>Fig. 3: Some potential debugging steps for NapTime's engineers</figcaption>
-        </figure>
-        <br />
-        <p>
-          First, if they have a list of their static IP addresses, they can use the Unix command line utility `ping` to
-          check whether each of the servers is up at all. If the servers are up, it’ll be useful to see their health
-          metrics. NapTime engineers might run a utility like `top` on each of the servers to see a summary of the
-          system’s health (e.g. overall CPU load or available memory) as well as what processes are running on the
-          server.
+          If there is an uptick in errors, Oliver can quickly jump through that metric error data point and see traces that happened in that timeframe. By deep-diving into the traces, he can see the exact request and exact error. Then all he has to do is fix it. 
         </p>
         <br />
         <p>
-          If everything checks out with the system’s health, it’s time to start looking into the individual services
-          running on each server. If the engineers are interested in a running process, like an application, they might
-          check the status of their process manager. Each service generally has a different method of checking its
-          health.
+          Before diving further into Horus, let’s take a step back and better understand the realm of telemetry data and observability. 
         </p>
         <br />
-        <p>
-          After the most obvious checks (e.g. is something even running?) come the next steps. What if none of their
-          checks turn up an issue? Performing each of the aforementioned steps manually will tell them how something is
-          performing at the moment of observation, but what about performance just before they checked? Or how about at
-          the time the complaints started coming in? The log files that each of NapTime’s servers and services produce
-          can provide the answers to these questions.
-        </p>
-        <br />
-        <figure>
-          <img src="assets/images/case-study/logs-historical.png" class="case-study-image" />
-          <figcaption>Fig. 4: NapTime's servers and services write their historical records to log files</figcaption>
-        </figure>
-        <br />
-        <p>
-          Let’s say that the NapTime team is curious about what’s going on with their Nginx web server. One of their
-          next steps would be to take a look at the access log file in the nginx subdirectory of var/log.
-        </p>
-        <br />
-        <p>
-          Web servers like nginx and Apache produce access logs, where each line contains information about each request
-          sent to the system; like the IP address of the requester, time of the request, the path of the requested file,
-          the server response code, the time it took the server to fulfill the request, and more. If there are 500-level
-          errors occurring, exploring the access log of their web server is where NapTime would find evidence of them.
-        </p>
-        <br />
-        <figure>
-          <img src="assets/images/case-study/log-breakdown.png" class="case-study-image" />
-          <figcaption>Fig. 5: An example of a single record from a web server's plain-text access log</figcaption>
-        </figure>
-        <br />
-        <p>
-          The individual log lines NapTime would find would look something like the above diagram. An interested
-          engineer can take logs like these and analyze them, either one by one or aggregated, in order to achieve a
-          number of insights, like:
-          <!-- TODO: Bullet points -->
-          · Finding individual specific events in the past
-          · Graphing trends over time, like 500 response codes or aggregated requests per minute
-          · And alerting specific users when pre-defined heuristic thresholds are met or surpassed
-        </p>
-        <br />
-
-        <h3>1.4 Scaling up NapTime</h3>
-        <p>
-          Let’s consider NapTime’s architecture and processes after they scale a bit more. They still have a three-tier
-          architecture, with presentation, business logic, and storage abstracted away from each other, but now they
-          have more overall servers and services.
-        </p>
-        <br />
-        <p>
-          Collecting and processing logs is straightforward when everything is on a single machine, you just use some
-          software to handle aggregation. But when you have a distributed system with multiple nodes, instead of just
-          software you need both software AND some infrastructure that can handle both transportation to and storage in
-          a new central location.
-        </p>
-        <br />
-        <figure>
-          <img src="assets/images/case-study/naptime-scaled.png" class="case-study-image" />
-          <figcaption>Fig. 6: NapTime's architecture after scaling</figcaption>
-        </figure>
-        <br />
-        <p>
-          Suddenly NapTime is in charge of 8 nodes instead of 2, scaled out app servers, more unique services, a load
-          balancer, and multiple databases. What is debugging like for them now? What if MongoDB suddenly stops
-          responding, or one of the app servers can no longer write to the Main Postgres instance? How will NapTime
-          isolate what went wrong, let alone actually fix it? Their number of servers and services keeps growing, and
-          the number of connections between all of them continues to grow exponentially. How is the team supposed to get
-          a holistic understanding of what’s happening across the entire topology of their system?
-        </p>
-        <br />
-        <p>
-          Monitoring is toil. That is, if you don’t have an automated framework taking care of it for you. As detailed
-          above, one key component in “monitoring” is examining the log output of your systems. That can mean reading
-          through files thousands of lines long, like NapTime’s Nginx Access Log, one line at a time. No one wants to
-          read log files line by line if it can be avoided. After all, one of the main motivations of the field of
-          software engineering is automating the toil out of processes.
-        </p>
-        <br />
-        <figure>
-          <img src="assets/images/case-study/tail.gif" class="case-study-image" />
-          <figcaption>Fig. 7: Running `tail -f` on a server/service's logfile can help you understand what that
-            server/service is doing over time</figcaption>
-        </figure>
-        <br />
-        <p>
-          On Unix-like systems, a common strategy to gain a quick insight into what’s happening with a service is to run
-          the command `tail -f` on the log file to which that service writes. Tail prints the last 10 lines of a given
-          file to STDOUT, and the `-f` flag indicates that the program should continue to “follow”, streaming new lines
-          to STDOUT as they are written to the file.
-        </p>
-        <br />
-        <p>
-          This process worked fine for NapTime when they wanted to watch the real time stream of log messages on one
-          machine or two. But what about now that their system is distributed across nearly a dozen servers? Are their
-          engineers going to open a dozen terminal windows and SSH onto each individual server?
-        </p>
-        <br />
-        <p>
-          Monitoring distributed applications is exponentially harder. The Naptime engineers simply wouldn’t be able to
-          watch and comprehend the stream of logs coming in for every service on each server in real time. They would
-          want to be able to capture those logs as they’re written or emitted and save them for later. Ideally on a
-          central server of some kind, so they don’t have to go SSHing around to find what they need in the stress of an
-          outage.
-        </p>
-        <br />
-
-        <h3>1.5 Observability</h3>
-        <p>
-          The visibility that a team like NapTime seeks into their system is summed up by the concept of observability.
-        </p>
-        <br />
-        <!-- TODO: Ø Cindy blockquote formatting here -->
-        <p>
-          Due to the nature of software, no complex system is ever healthy.
-        </p>
-        <br />
-        <p>
-          Distributed systems in particular are pathologically unpredictable. When multiple services in a distributed
-          system are communicating with each other over the wire, each hosted on a potentially ephemeral node, the
-          possible failure conditions are nearly endless. What if a server is down? What if a service is down? What if
-          both services are up but are failing to communicate for some reason? Et cetera.
-        </p>
-        <br />
-        <p>
-          In light of these challenges, a team must also keep in mind to design their systems to facilitate debugging..
-          Things will break and outages will occur. Hope is not a strategy; but preparedness is.
-        </p>
-        <br />
-
-        <h3>1.6 Need for a monitoring strategy</h3>
-        <p>
-          Things can get messy very quickly. Without a centralized platform for handling the collection, transportation,
-          and storage of your data, those valuable records can get lost or never collected in the first place.
-          Developing a strategy for the collection, centralization, and retention of your log and metric data means that
-          you don’t prematurely forfeit the benefits that logs and metrics provide.
-        </p>
-        <br />
-        <p>
-          Dendro acts as that strategy.
-        </p>
-        <br />
-        <figure>
-          <img src="assets/images/case-study/single-source.gif" class="case-study-image" />
-          <figcaption>Fig. 8: Dendro provides a single source of historical truth for application state</figcaption>
-        </figure>
-        <br />
-        <p>
-          A team can SSH into each of the nodes in their system, configure and deploy a logging pipeline using Dendro’s
-          cli tool, , and start shipping all of their log and metric data off of their servers and onto a central store.
-          The logs and metrics produced can come either from services running on the server, like nginx or Postgres, or
-          from the server itself, in the form of host metrics like CPU load or available memory.
-        </p>
-        <br />
-        <p>
-          Dendro provides a single, centralized log management solution, untangling the web of data producers and
-          consumers. No more routing logs from individual sources to multiple destinations over time. No more custom
-          aggregation scripts, cron jobs, or any of that. Dendro collects the logs and metrics emitted from distributed
-          servers and services over time, building a single source of historical state.
-        </p>
-        <br />
-        <p>
-          That single source of truth about system and service state and performance empowers the user to:
-          <!-- TODO: Bullet points -->
-          · Ensure that all output or generated data is reliably and automatically captured, without having to do it
-          manually
-          · Avoid context switching, or jumping between databases and machines trying to dig up whatever went wrong
-          · And reduce debugging time, because everything exists in a single database and can be queried and explored
-          like normal relational data.
-        </p>
-        <br />
-        <p>
-          Each of these benefits brings the user closer to the holy grail for engineers: automating away manual toil.
-        </p>
-        <br />
-
+        
         <!-- Section 2 -->
-        <h2 class="h2">2 Overview of Dendro</h2>
-        <h3>2.1 How does Dendro help teams?</h3>
+        <h2 class="h2">2 Telemetry</h2>
+        <h3>2.1 What is telemetry?</h3>
         <p>
-          To explore exactly how Dendro empowers small teams working on distributed applications, let’s think back to
-          the example of NapTime after they’ve scaled their architecture.
-        </p>
-        <br />
-        <figure>
-          <img src="assets/images/case-study/dendro-agent.gif" class="case-study-image" />
-          <figcaption>Fig. 9: Dendro's CLI helps you install and configure a collection agent on your nodes</figcaption>
-        </figure>
-        <br />
-        <p>
-          Dendro includes a collection agent that the team installs on each node in their system. That collection agent
-          gathers log and metric data from both the services running on the server, as well as information about the
-          server itself.
+          Telemetry is “the collection of measurements, or other data, at remote or inaccessible points and their automatic transmission to receiving equipment for monitoring." Put another way, telemetry is a collection of data points that represent information about an application's health and can be used for monitoring and observability purposes. Want to know how your system is doing? Look at the telemetry data.
         </p>
         <br />
         <p>
-          But how does the data make the jump from those machines to the central database? That would require an
-          infrastructure pipeline, in addition to the deployment of some type of collection software.
+          There are at least three essential observability data types: <span class="bold">metrics</span>, <span class="bold">logs</span>, and <span class="bold">traces</span>.
         </p>
         <br />
-
-        <h3>2.2 What’s in Dendro?</h3>
+        <h3>2.2 What are metrics, traces, and logs?</h3>
         <p>
-          This is an overview of Dendro’s architecture and the infrastructure behind this framework. We’ll dive into it
-          in more detail later, but for now let’s stick to the main conceptual pieces.
-        </p>
-        <br />
-        <figure>
-          <img src="assets/images/case-study/dendro-architecture.gif" class="case-study-image" />
-          <figcaption>Fig. 10: An overview of Dendro's architecture, split into conceptual components</figcaption>
-        </figure>
-        <br />
-        <p>
-          We’ve already discussed how Dendro helps you set up the automated collection of logs and metrics from your
-          services. You don’t need to change a single line of your application code-- Dendro runs as a fully-decoupled
-          agent process on your nodes, tapping into the log files to which your services already write and scraping
-          metrics from the server. But collecting your logs and metrics is only the tip of the iceberg.
+          <span class="bold">Metrics</span> are numeric measurements. A metric could represent a numeric status for a moment in time (% of memory being used) or it could be an aggregated measurement (how many clicks per 10 seconds). A metric data point usually includes a name, a timestamp, and one or more numeric values. Metrics are considered to be the macro level of telemetry data and can answer questions like:
+          <ul>
+            <li>“Is the application performing slower than it should be?”</li>
+            <li>“Are users encountering errors while using the application?</li>
+            <li>"At what time of day are we receiving the most amount of requests?"</li>
+          </ul>
         </p>
         <br />
         <p>
-          The collection agent streams data at the time of generation to your own pipeline that Dendro creates. Getting
-          the data off of the machine as quickly as possible is important for both your ability to monitor in real-time,
-          as well as ensuring that data isn’t lost if an ephemeral virtual machine gets spun down outside of your
-          control.
+          Why the application is performing this way may still be unclear, but the metric brings clarity to the broader picture of the application's overall state and performance. For example, when monitoring the app’s network, there could be a sharp uptick in requests per second. This could indicate good business — or a DDoS attack. Either way, the information encourages the developer to pay attention and learn more.
         </p>
         <br />
         <p>
-          The pipeline also features a processing step where the collectors deployed by Dendro take the raw data coming
-          off of your servers and rework it into predictable, structured output, before storing it in a time-series
-          database optimized for writing, processing, and querying time-series data. Dendro builds a single source of
-          truth for you with each table representing a different capture source, while preserving the identity of the
-          host machine or process for each row of data.
+          <span class="bold">Logs</span> are the most detailed data type, so it’s easy to assume they’re immediately helpful. They can be, but all of the details can make them hard to parse and understand. Logs are often unstructured, sporadic lines of text that the system creates as it does various tasks. Logs are great when diving into the details and seeing the step-by-step explanation of what a system did, or attempted to do.
         </p>
         <br />
         <p>
-          All of your monitoring data existing in the same place (your Timestream database) allows you to keep context
-          switching at an absolute minimum while debugging, while also maintaining high-resolution in your data so you
-          can visualize and explore granular changes in the performance and state of your servers and services over
-          time.
+          <span class="bold">Traces</span> are the newest telemetry data type and are used less than metrics and logs. As a newer technology, it can sometimes be harder to work with them in a meaningful way. However, when properly captured and queried, they offer a wealth of information.
+        </p>
+        <br />
+        <p>
+          A request can pass through a host of different services, making them harder to pin down and understand what happened. A trace provides a view of a request throughout its lifetime in a system: where it starts, where it goes to next, and where it finally terminates, throughout a distributed infrastructure.
+        </p>
+        <br />
+        <p>
+          Traces capture not only the whole journey of request, but each step of the way, and how long each step took. Each step is commonly referred to as a span (short for a span of time).
         </p>
         <br />
 
-        <h3>2.3 Why did we build Dendro?</h3>
+        <h3>2.3 Metrics and Traces for Evo T-Shirts</h3>
         <p>
-          The goal we had in mind when we set out to build Dendro was to help teams start collecting, centralizing,
-          storing, and getting value out of their logs and metrics today, so they have them when they need them.
+          With that context in mind, let's return to Evo T-shirts. Aside from his immediate need, Oliver and his team generally want to be able to get a bird's-eye view of how Evo T-shirts is performing over a daily or weekly period. If the marketing team decides to run a promotion or sale, they may even want to visualize how the online store is performing on an hourly basis. Any dropped requests, errors encountered, or steep increases in latency could impact the overall user experience, costing the company money.
         </p>
         <br />
+        <p>
+          Metrics seem like a good path to pursue here. Oliver could simply run a monitoring system alongside the application, see the overall health of the store, and get instant feedback on any issues that occur. 
+        </p>
+        <br>
+        <p>
+          Metrics aggregate all monitoring measurements and export them at specific time intervals. All metric data is included in this aggregation and the exporting cost does not increase with higher traffic. Therefore, a metric measuring the average latency of an endpoint will also include the fastest and slowest requests that took place in that time period. A calculation of the error rate will always be accurate as the counter will only be incremented if an error is thrown in the application. 
+        </p>
+        <br>
+        <p>
+          Although this is a great place to start, there are some limitations in taking a metric-only approach.
+        </p>
+        <br>
+        <p>
+          If Oliver's application were to start detecting errors, or there was a sharp increase in overall latency, Oliver wouldn't be able to identify where across his microservice infrastructure the complications were materializing. Oliver needs to meaningfully query the telemetry data, using the metrics as indicators, to resolve the issue and get the application back up and running again. 
+        </p>
+        <br>
+        <p>
+          Traces are the natural option here. They provide detailed breakdowns of individual requests by supplying contextual information around how the journey of the request unfolded as it moved through the system's infrastructure. Furthermore, traces excel at showing the relationship between services as well as capturing high-cardinality data about each specific request. This helps pinpoint the source of an issue in the distributed system quickly and accurately.
+        </p>
+        <br>
+        <p>
+          By establishing a relationship between the macro nature of metrics and detailed nuances of traces, Oliver is able to achieve the observability coverage he's looking for by recording the interactions that are taking place across the distributed services. Oliver can then "jump" between a high-level and low-level perspective by switching between metrics and traces. 
+        </p>
+        <br>
+        <p>
+          All of this looks like an exciting path forward to solving the application monitoring problem for Oliver and Evo T-shirts, but how does a telemetry system work exactly? Let's look at the components and architecture that make this monitoring solution possible.
+        </p>
+        <br>
+        <h3>2.4 A Telemetry System Architecture</h3>
+        <p>
+          In <i>Software Telemetry</i>, Jamie Riedesel describes software telemetry as "the systems that bring you telemetry and display it in a way that will help you make decisions."
+        </p>
+        <br>
+        <p>
+          A software telemetry system is composed of three major stages: <span class="bold">emission</span>, <span class="bold">shipping</span>, and <span class="bold">presentation</span>. In essence, it will ingest data, process it, store it, and make it retrievable to the end-user. This applies to every type of telemetry data: <span class="bold">metrics</span>, <span class="bold">traces</span>, and <span class="bold">logs</span>. Let’s break down these stages and see what function they play in a wider telemetry system.
+        </p>
+        <h2>Pipeline picture goes here</h2>
+        <br>
+        <h4>The Emitting Stage
+        <p>
+          The emitting stage is the first stage in the telemetry pipeline architecture. It is largely responsible for generating telemetry data in a production application. This stage can either allow the telemetry data to be emitted and stored locally, or it can be forwarded to the shipping stage to be batched, processed, and exported to a remote location. 
+        </p>
+        <br>
+        <p>
+          For Oliver, it's important that his own application is decoupled from the telemetry system so that both components are able to operate independently of one another. It's common practice today to implement a telemetry generating emitter through the form of an SDK. OpenTelemetry is an example of a leading developer tool kit that could be implemented to generate and emit telemetry data. We'll discuss OpenTelemetry in greater depth later on.
+        </p>
+        <br>
+        <h4>The Shipping Stage</h4>
+        <p>
+          The shipping stage is largely responsible for receiving the raw telemetry data from the emitter (in the form of either metrics, logs, or traces), processing it into an accessible data format, enriching the data if needed, and saving the data in a storage mechanism. A large design component of the shipping stage is to consider how to organize and store the raw telemetry data that is generated by your emitter. 
+        </p>
+        <br>
+        <p>
+          Telemetry data is generated continuously and at a high frequency. Therefore, the database needs to be able to handle this high write intensity while also being able to query data when required. Should the frequency of the incoming data surpass the processing capability of the database, it may be wise to consider the implementation of either a queue or event bus to manage the data influx. Both these options also provide the benefit of reducing the possibility of data being dropped if there is a database backlog or being lost if the database goes down.
+        </p>
+        <br>
+        <h4>The Presentation Stage</h4>
+        <p>
+          The presentation stage is the last phase of the telemetry pipeline and is, crucially, the only one where most people will interact to make important design and business decisions. This stage's purpose is to transform telemetry data into useful, measurable, and human-friendly insights regarding how an application is performing. The presentation stage is often a separate architectural component to the emission and shipping stages and is regarded as the user interface of telemetry architecture. The presentation component will pull from a given data source, format the data to be interpreted by the UI, and visualize the data in a human-friendly way.
+        </p>
+        <br>
+        <p>
+          The presentation stage is often what large SaaS monitoring solutions use as their primary selling point. If the telemetry architecture doesn't implement this stage itself, the user will just do it themselves either by creating their own graphs or outsourcing to a separate UI component. Therefore, telemetry presentation is always a key component of telemetry architecture even though it does not directly impact the generation or production of telemetry data.
+        </p>
+        <br>
+        <p>
+          That’s a lot to digest! And in a way, that’s an important point for Oliver. Although he finds this interesting, he’s more interested in getting his application performance management (APM) tool up and running than understanding it deeply. How can he go about monitoring Evo T-shirts?
+        </p>
+        <br>
+        <p>
+          
+        </p>
 
         <!-- Section 3 -->
-        <h2 class="h2">3 Who should use Dendro?</h2>
+        <h2 class="h2">3 Existing Solutions</h2> 
         <p>
-          When it comes to picking a monitoring solution, companies generally consider three options: buy, operate, or
-          build.
-        </p>
-        <br />
-        <figure>
-          <img src="assets/images/case-study/buy-operate-build.gif" class="case-study-image" />
-          <figcaption>Fig. 11: Teams generally choose between buying, personally operating, or building their own
-            monitoring solution</figcaption>
-        </figure>
-        <br />
-        <p>
-          If a small company like NapTime was to <span class="bold">buy</span> a solution, they might look at working
-          with a SaaS vendor like Datadog. Outsourcing your monitoring to a vendor makes the whole process very easy and
-          painless, but that ease comes with a pretty steep price. Not every small company has enough runway to justify
-          spending money on yet another SaaS service.
+          Oliver has several options to explore for a full application performance management tool. His need for a simple setup steers him to look at all-in-one options first. Third-party services like NewRelic and DataDog are a good place to start, as they provide out-of-the-box full observability platforms. Aside from the user copying and pasting some provided code into their application (the “emitting” or instrumentation phase), it’s all connected, set up, and ready to go. 
         </p>
         <br />
         <p>
-          The next option then is to <span class="bold">operate</span>. Open source platforms like Elastic were
-          developed to make this relatively simple. However, if you want to use the open source Elastic Stack, you’re
-          still responsible for hosting all of it, and managing an Elasticsearch server requires knowledge of Java and
-          prolonged attention. What if NapTime’s engineers don’t have that expertise or time?
+          Hosted data storage comes with these end-to-end options. The user doesn’t even need to be aware of the kind of database being used or how it is queried by the UI; all of those details are abstracted away and the user can interact with the data exclusively through the provided UI. 
         </p>
         <br />
         <p>
-          The third option, <span class="bold">build</span>, simply isn’t feasible for a small company. If you’re a tech
-          giant like Facebook or Twitter, with a huge budget and plenty of infrastructure, you can roll your own
-          observability platform. For a small company, their time is much better spent on their own core-business
-          product that keeps the lights on.
+          Their polished UIs include dashboards that display a range of metrics and trace sections that allow filtering and deep-dives (reminder: that’s what Oliver wants!). Many of these third-party services (including NewRelic and DataDog) go beyond metrics and traces and include both logs and events with dedicated sections, dashboards, correlations, and graphs. They often have extensive documentation to get the user up and running. 
         </p>
         <br />
         <p>
-          But what if there were another option? That’s where we think Dendro fits in.
-        </p>
-        <br />
-        <figure>
-          <img src="assets/images/case-study/dendro-comparison.png" class="case-study-image" />
-          <figcaption>Fig. 12: How our team chose to position Dendro in the marketplace of monitoring solutions
-          </figcaption>
-        </figure>
-        <br />
-        <p>
-          Dendro combines the <span class="bold">ease of deployment</span> and <span class="bold">low maintenance</span>
-          of a SaaS solution thanks to its collection agents and fully-serverless pipeline.
+          As nice as this sounds, these options have immediate drawbacks for Oliver. First, he wants to retain ownership and flexible manipulation of the data. With NewRelic and DataDog, he can only interact with his data through pre-defined avenues. If he would ever leave the free NewRelic plan, he would forfeit all of his data as only paid plans can export data. Furthermore, with the free plan, NewRelic only keeps Oliver’s traces for 8 days; that will make it harder to do analysis that spans longer than a week. DataDog doesn’t offer a free plan outside of a 14-day free trial of the paid service.
         </p>
         <br />
         <p>
-          Dendro mirrors the <span class="bold">ownership of data</span> promised by Open Source or DIY solutions. Log
-          data can be extremely sensitive, and you don’t necessarily want someone else having access to your records in
-          their god view/admin platform.
+          Additionally, both NewRelic and DataDog are so feature-rich that their UIs are overwhelming for someone unaccustomed to observability. They have a steep learning curve that requires the user to know exactly what they want and hunt it down. Oliver doesn’t need lots of bells and whistles. He just wants to see basic requests per second, error count, latency health, and the traces behind them. Even if Evo T-shirts was willing to pay for these big services, it would be overkill for their needs. For them, the income generated would be better spent on improving the products and raising the business profile through marketing.
         </p>
         <br />
         <p>
-          However, Dendro isn’t nearly as <span class="bold">feature rich</span> as any of the other solutions. We built
-          Dendro with a specific, niche use-case in mind and can’t come close to offering the richness of a Datadog,
-          Elastic Stack, or highly custom DIY platform.
+          Because Oliver wants something simpler and custom to their needs, he’s left with a DIY via Open Source approach. He has a plethora of options for how to stitch it all together: OpenTelemetry, Jaeger, Zipkin, Prometheus, Grafana, etc. Then he has a long list of questions to research:
+        </p>
+        <ul>
+          <li>What does each of these tools do?</li>
+          <li>Where do their purposes end and begin?</li>
+          <li>Can they all seamlessly work together?</li>
+          <li>Should he batch export traces and metrics? Why or why not?</li>
+          <li>What database should he use?</li>
+          <li>Should he store metrics and traces together or separately?</li>
+          <li>How should he connect metrics and traces?</li>
+          <li>What pieces of information should he store about traces?</li>
+          <li>And on and on...</li>
+        <br />
+        <p>
+          This incurs a time cost that’s difficult to measure. Oliver and his team could combine well-established telemetry generating options like Prometheus (for metrics), Jaeger (for traces), and Grafana (for visualization), but this also means learning all three products (and more) and configuring them to work effectively together. 
         </p>
         <br />
         <p>
-          One of Dendro’s main differentiators is that <span class="bold">Dendro treats time-series data as a
-            first-class citizen</span>. The time-series database in Dendro’s pipeline is optimized for inserting and
-          indexing time-based data, and comes with a whole slew of time-series query and aggregation functionality that
-          Elasticsearch does not support.
+          What Oliver needs is an Open Source, all-in-one service, that allows him to retain ownership of his data and has a simple, meaningful connection between metrics and traces displayed in a simple UI. 
         </p>
         <br />
         <p>
-          But, what we traded for the ease and speed of setup and time-series optimization is cost. We designed the
-          pipeline using AWS components, and while their pricing can be opaque and tricky to calculate at times Dendro
-          certainly costs more to keep running than the Elastic Stack or a DIY platform because you’re not operating the
-          platform on your own infrastructure.
+          Lucky for him, that’s exactly what Horus is. 
         </p>
         <br />
-
 
         <!-- Section 4 -->
-        <h2 class="h2">4 Design Decisions</h2>
+        <h2 class="h2">4 Introducing Horus</h2>
 
         <p>
-          Our primary goal while designing Dendro was to help teams start collecting, centralizing, storing, and getting
-          value out of their logs and metrics as soon as possible. That way, teams have their monitoring data already
-          saved and explorable when they need it the most: in the stress of an outage. Our team took that goal and broke
-          it up into three components:
-
-          <!-- TODO: Bulletpoints -->
-          <span class="bold">The need for a “low-toil framework”</span>
-          <span class="bold">Treating time-series data as a first class citizen</span>
-          <span class="bold">Decreasing Mean Time to Resolve (MTTR)</span>
+          Horus is an open-source observability solution for microservices. Users can generate, store, and visualize correlated telemetry data, allowing them to see the real-time health of their application. 
         </p>
         <br />
-
-        <h3>4.1 Low-toil</h3>
         <p>
-          A low-toil framework is one that is easy to set up and maintain, helping your core development flow without
-          adding to your busy workload. There are 3 factors the team decided were crucial to determining whether a
-          framework could be called “low-toil”:
+          Designed with the user in mind, it makes the integration, generation, and visualization of application monitoring seamless and straightforward. 
         </p>
         <br />
-
-        <h5>Ease of Integration</h5>
         <p>
-          To start aggregating logs and scraping metrics, users generally need to deploy a collection tool onto their
-          servers. Ideally, such a tool should be able to collect, transform and route all monitoring data. Moreover, it
-          should be able to configure monitoring for multiple services without requiring users to write custom
-          integration code.
+          Built using OpenTelemetry, Horus encompasses industry-leading observability standards, technologies, and best practices to ensure that the generated telemetry data is always in the user’s hands and under their control.
         </p>
         <br />
-        <h5>A ready-made pipeline</h5>
         <p>
-          A low-toil framework should provision and deploy a pre-designed/opinionated logging pipeline for users,
-          freeing them from the need to research and construct their own -- enabling them to focus on their core
-          functionality.
+          With Horus, the user has the option to track both application metrics and traces to gain the observability coverage they need. Horus correlates the user’s application metrics with the traces that occurred in that given time period, providing full transparency over the interactions taking place across their system’s infrastructure in real-time.
         </p>
         <br />
-        <figure>
-          <img src="assets/images/case-study/api-calls.png" class="case-study-image" />
-          <figcaption>Fig. 13: Dendro's CLI commands abstract away the dozens of API calls to AWS required for setting
-            up a pipeline</figcaption>
-        </figure>
-        <br />
-        <h5>Low maintenance</h5>
-        <p>
-          Provisioning and maintaining servers takes time and can be difficult. And even under close observation, they
-          can still crash at seemingly random times. The ideal low-toil framework would feature a pipeline that is
-          completely serverless to avoid extra stress and overhead for development teams.
-        </p>
-        <br />
-        <p>
-          Every service in Dendro’s pipeline is fully serverless and managed for you by AWS. Users don’t need to worry
-          about Dendro crashing or becoming bogged down during peak loads.
-        </p>
-        <br />
-
-        <h3>4.2 Time-series native</h3>
-        <p>
-          Time series data is a collection of observations obtained through repeated measurements over time. Think of a
-          graph that has time as the x-axis-- that’s time-series data. At the level of a single record, time-series data
-          is indistinguishable from normal relational data that features a timestamp as a field.
-        </p>
-        <br />
-        <figure>
-          <img src="assets/images/case-study/timestream-schema.png" class="case-study-image" />
-          <figcaption>Fig. 14: An example schema for Timestream, AWS's time-series database</figcaption>
-        </figure>
-        <br />
-        <p>
-          With that in mind, log data is perfectly suited to being treated as time-series data. For example, time series
-          data could measure the average response time of a web server over the course of a week. The distinction
-          between normal relational data and time-series data is more meaningful when one thinks about aggregating and
-          querying data at the database level.
-        </p>
-        <br />
-        <!-- TODO: Kreps block quote: “A log is an append-only, totally-ordered sequence of records ordered by time.” -->
-        <p>
-          Elasticsearch & other such stores/services are optimized for text-based indexing and querying, but are not
-          optimized for time, and so typical queries you’d want to perform with time-based data are either slow or not
-          possible to perform.
-        </p>
-        <br />
-        <p>
-          Mapping logs from plain-text log lines to time-series records in a database unlocks a large range of
-          time-specific querying functionality that helps Dendro improve your ability to extract insights from your logs
-          over time.
-        </p>
-        <br />
-        <p>
-          If we look at a web server such as Apache or nginx, we can think of a few important metrics that use time as a
-          measurement.
-          <!-- TODO: Numbers -->
-          1. Request time duration - “What happened yesterday that caused our average request time to double?”
-          2. Request status codes - “What happened at 4pm that started causing 500 status codes?”
-          3. Requests per second - “When are our slowest hours so the team can schedule maintenance?”
-        </p>
-        <br />
-
-        <h3>4.3 Decrease Mean Time to Resolve (MTTR)</h3>
-        <p>
-          Getting insights into distributed systems is cumbersome.
-        </p>
-        <br />
-        <p>
-          For example, think back to NapTime’s scaled architecture. Their system includes 8 different nodes and 16
-          different network connections that could fail. If some error occurs, where did it happen? What node failed?
-          What logs do they check? Without log aggregation and centralization, NapTime would have to check each node
-          individually.
-        </p>
-        <br />
-        <figure>
-          <img src="assets/images/case-study/connections.png" class="case-study-image" />
-          <figcaption>Fig. 15: How can engineers debug systems with exponentially growing numbers of nodes/connections?
-          </figcaption>
-        </figure>
-        <br />
-        <p>
-          Dendro aims to decrease the time between an outage occurring and the time it takes for you to resolve it. We
-          don’t want your outages to be a murder mystery. And we don’t want you or your team being reactive.
-        </p>
-        <br />
-        <p>
-          Instead, we want you to be proactive. Dendro not only helps you catch issues early, but also informs you in
-          real-time precisely what’s broken, helping you pinpoint exactly what went wrong and on which node. Dendro does
-          so by monitoring incoming logs and metrics to notify users of failures, thereby decreasing the time it takes
-          for your team to become aware of a problem.
-        </p>
-        <br />
-        <figure>
-          <img src="assets/images/case-study/proactive.png" class="case-study-image" />
-          <figcaption>Fig. 16: Dendro helps you be proactive, rather than reactive, in debugging your system
-          </figcaption>
-        </figure>
-        <br />
-        <p>
-          With Dendro, NapTime’s engineer’s no longer need to check 8 different nodes. By aggregating logs into a single
-          database and providing a dashboard to query and view health metrics, Dendro helps solve outages efficiently
-          without your engineers having to play detective.
-        </p>
-        <br />
-
-
-        <!-- Section 5 -->
-        <h2 class="h2">5 Dendro's Architecture</h2>
-        <br />
-        <figure>
-          <img src="assets/images/case-study/architecture.png" class="case-study-image" />
-          <figcaption>Fig. 17: Dendro's architecture</figcaption>
-        </figure>
-        <br />
-        <p>
-          We’ve seen how Dendro’s architecture is split up into four major conceptual sections. In this next section
-          we’re going to more closely examine these pieces as well as the individual components that comprise them.
-        </p>
-        <br />
-
-        <h3>5.1 Collection</h3>
-        <br />
-        <figure>
-          <img src="assets/images/case-study/collection.png" class="case-study-image" />
-          <figcaption>Fig. 18: Dendro's collection step</figcaption>
-        </figure>
-        <br />
-        <p>
-          For each service in a user’s distributed app that they want to monitor, they need to set up collection. Dendro
-          uses a collection agent called <a href="https://vector.dev/" target="_blank">Vector</a> to gather, transform,
-          and send a user’s distributed logs to the pipeline.
-        </p>
-        <br />
-        <p>
-          Raw logs are text based, unqueryable and generally hard to work with. Vector makes it possible to take this
-          raw, plaintext nginx access log and convert it to JSON prior to sending the log off to the pipeline for
-          further processing.
-        </p>
-        <br />
-        <figure>
-          <img src="assets/images/case-study/highlighted-log.png" class="case-study-image" />
-          <figcaption>Fig. 19: Extracting information from raw logs is difficult</figcaption>
-        </figure>
-        <br />
-        <p>
-          Looking at this log, we can see several important pieces of information. The path that was requested, the
-          amount of time it took to complete the request, as well as the time the event occurred. Dendro needs to
-          somehow identify and capture this information from this dynamic log.
-        </p>
-        <br />
-        <p>
-          To properly function on each node it’s deployed on, Vector requires a lengthy configuration file. It includes
-          all of the log and metric sources you want to gather from and the sinks you’re sending to. It requires writing
-          esoteric regexes to transform those logs from plaintext to a structured format, and configuring your AWS
-          credentials to ship to the pipeline. Dendro adds a “type” field to each collected record, identifying the
-          service that produced the log. This type property is crucial for a sorting step that occurs later on in the
-          pipeline and which we’ll discuss below.
-        </p>
-        <br />
-        <br />
-        <figure>
-          <img src="assets/images/case-study/vector-config.png" class="case-study-image" />
-          <figcaption>Fig. 20: A basic config file for vector is dozens of lines long</figcaption>
-        </figure>
-        <br />
-        <p>
-          Writing out all of this information is extremely laborious. A fully fleshed out configuration file is over 400
-          lines long, and this caused our team plenty of headaches when we were first manually typing it out.
-        </p>
-        <br />
-        <p>
-          In order to streamline this, the team built a `dendro configure` CLI command that launches a configuration
-          wizard, providing a prompt to select which services our users want to monitor. With these services selected,
-          Dendro is able to dynamically generate the long config file Vector requires without manual effort.
-        </p>
-        <br />
-        <br />
-        <figure>
-          <img src="assets/images/case-study/dendro-config.gif" class="case-study-image" />
-          <figcaption>Fig. 21: Dendro's configure command</figcaption>
-        </figure>
-        <br />
-        <p>
-          Once Vector is properly configured, it gathers logs and metrics, transforms them from plaintext to JSON, and
-          then sends them off to the cloud pipeline. Once in the pipeline, the first stop is AWS Kinesis Data Firehose.
-        </p>
-        <br />
-
-        <h3>5.2 Transform</h3>
-        <br />
-        <figure>
-          <img src="assets/images/case-study/transform.png" class="case-study-image" />
-          <figcaption>Fig. 22: Tranformation section of Dendro's cloud infrastructure</figcaption>
-        </figure>
-        <br />
-        <p>
-          Kinesis Data Firehose is a fully-managed, real-time streaming platform that captures, transforms & delivers
-          data. It ingests new data up to a predefined threshold (Dendro defaults to use one minute/1MB) in order to
-          optimize network efficiency, and because it’s completely serverless, it adds no additional infrastructure for
-          the users of Dendro to manage.
-        </p>
-        <br />
-        <br />
-        <figure>
-          <img src="assets/images/case-study/connections-bad.png" class="case-study-image" />
-          <figcaption>Fig. 22: An impossible to manage web of connections between services</figcaption>
-        </figure>
-        <br />
-        <p>
-          In today’s distributed world, data produced by one service is often consumed by multiple other services.
-          Connecting all of these is difficult, time-consuming and hyper-specific. Dendro uses Kinesis to help decouple
-          services from one another. Instead of connecting every service together in a hyper-specific manner, each
-          service can publish to or consume from the Data Firehose.
-        </p>
-        <br />
-        <br />
-        <figure>
-          <img src="assets/images/case-study/connections-good.png" class="case-study-image" />
-          <figcaption>Fig. 23: Services decoupled from one another</figcaption>
-        </figure>
-        <br />
-        <p>
-          Once the data buffering threshold is met, data is pointed to the static HTTP Endpoint of an S3 bucket. Data is
-          temporarily staged in the bucket for two main reasons: to assist with retries of failed deliveries and persist
-          any records that errored out before being stored in Timestream (which will prompt an alert from Dendro’s
-          monitoring setup, as we’ll discuss later), as well as to trigger a Lambda function on being written.
-        </p>
-        <br />
-        <p>
-          Lambda is a serverless compute service that allows users to execute code without provisioning servers. Lambdas
-          can be invoked in response to certain triggers making them event-driven, and they can scale proportionally to
-          the incoming workload by concurrently invoking more instances of a function when needed. This ability to
-          continuously scale is perfect for Dendro because log data tends to be very bursty.
-        </p>
-        <br />
-        <br />
-        <figure>
-          <img src="assets/images/case-study/lambda-go.png" class="case-study-image" />
-          <figcaption>Fig. 24: Dendro's Lambda function sorting and inserting records into Timestream</figcaption>
-        </figure>
-        <br />
-        <p>
-          The Lambda function serves to transform, sort, and load data into Timestream, our selected time-series
-          database. The team initially wrote the Lambda function in JavaScript, but later rewrote it in Golang because
-          the Lambda function is pivotal to the throughput of data ingestion and using a compiled language offered
-          faster speeds and lower overhead. This rewrite to Go netted us a two-fold increase in throughput when
-          processing 1,000 records.
-        </p>
-        <br />
-        <p>
-          Once invoked, Dendro’s Lambda function retrieves the newly written records from the bucket, sorts, and stores
-          them into separate tables in Timestream based on the type property, which is added earlier using Vector.
-        </p>
-        <br />
-
-        <h3>5.3 Store</h3>
-        <p>
-          This takes us to Timestream, a time-series optimized database service. With the user’s data extracted,
-          transformed, and finally loaded into Timestream, they are able to analyze and query this data across arbitrary
-          periods of time. Dendro has taken their raw logs and metrics and converted them into a form that's easily
-          analyzable and processable.
-        </p>
-        <br />
-        <p>
-          This is possible because Timestream provides a SQL-like language to query this data. This query language is
-          extremely powerful because not only is it already familiar to most developers, but also it adds some very
-          powerful functions that work with time-series datasets.
-        </p>
-        <br />
-        <br />
-        <figure>
-          <img src="assets/images/case-study/timeseries-query.png" class="case-study-image" />
-          <figcaption>Fig. 25: Time-series analysis with SQL</figcaption>
-        </figure>
-        <br />
-        <p>
-          The power of a time-series database can be summed up by the idea that changes in data over time are tracked as
-          INSERTS, rather than as UPDATES. There’s no rewriting of existing data when you’re thinking in terms of
-          time-series, there are just multiple observations over time. This unlocks rich potential for graphing,
-          visualizing, and understanding trends in your data over time-- precisely what the team set out to do when we
-          designed Dendro.
-        </p>
-        <br />
-
-        <h3>5.4 Monitor</h3>
-        <br />
-        <figure>
-          <img src="assets/images/case-study/monitor.png" class="case-study-image" />
-          <figcaption>Fig. 26: Monitoring section of Dendro's cloud infrastructure</figcaption>
-        </figure>
-        <br />
-        <p>
-          With the aforementioned infrastructure in place, the team was able to build a monitoring and alerting system
-          to harness the incoming logs. This enables some useful functionality, like the ability to email our users as
-          soon as critical errors in their distributed system occur (like a web server suddenly only returning 500
-          response codes). This core functionality is made possible by CloudWatch.
-        </p>
-        <br />
         <p>
-          CloudWatch provides a centralized view of all the logs coming from the user’s cloud infrastructure. Dendro
-          users are able to set up metric filters on incoming logs and set heuristic thresholds that, when activated,
-          will set off an alarm. Triggered alarms publish an event to their corresponding Simple Notification Service
-          topic, which will in turn email any users that have subscribed to that topic during setup. This allows us to
-          watch for any errors as they occur and immediately notify our users.
+          Horus goes beyond just the emission of telemetry data. Through Docker, it sets up a network of Horus components on the user’s server to receive, format, store, and visualize incoming telemetry data. 
         </p>
         <br />
         <p>
-          Finally, we arrive at Dendro’s custom-built data exploration and dashboarding server.
+          Horus removes the friction of combining components like Jaeger, Prometheus, and Grafana together to achieve observability by providing purpose-built components that reduce the potential set up time from hours or days to minutes. 
         </p>
         <br />
-        <br />
-        <figure>
-          <img src="assets/images/case-study/dashboard-charts.png" class="case-study-image" />
-          <figcaption>Fig. 27: Dendro's chart page</figcaption>
-        </figure>
-        <br />
-        <p>
-          We built a dashboarding hub to help users visualize and query their data in near real-time as it's being
-          produced. This dashboard is available for view on any machine in the user’s distributed system that has Dendro
-          installed. The team has pre-populated the dashboard with charts that allow users of Dendro to isolate
-          anomalies and see historical trends. These charts are generated and populated in real time, providing an
-          up-to-the-minute view of system state in a single location.
-        </p>
-        <br />
-        <br />
-        <figure>
-          <img src="assets/images/case-study/dashboard-query.png" class="case-study-image" />
-          <figcaption>Fig. 28: Dendro's query page</figcaption>
-        </figure>
-        <br />
-        <p>
-          Because accessing AWS functionality through their actual website GUI can take time and effort, we also built
-          in the ability to query Timestream directly from the dashboarding hub, exploring any returned rows for
-          convenience and exporting the data as JSON with the click of a button.
-        </p>
-        <br />
-        <p>
-          Now that we’ve individually examined each component of Dendro, we’re better equipped to understand Dendro as a
-          whole and how to use it.
-        </p>
-        <br />
-
-
-        <!-- Section 6 -->
-        <h2 class="h2">6 Installing and Using Dendro</h2>
-        <h3>6.1 Installing Dendro</h3>
-        <br />
-        <figure>
-          <img src="assets/images/case-study/5-steps-to-install.png" class="case-study-image large-image" />
-          <figcaption>Fig. 29: Five Steps to Installing Dendro</figcaption>
-        </figure>
-        <br />
-        <p>
-          Dendro is an npm package, which means the first step is to download and install it just like any other npm
-          package. Make sure to use the <code class="command">-g</code> flag so that the command is available throughout
-          your local environment.
-        </p>
-        <br />
-        <p>
-          The second step is to install the data collecting agent, Vector, on the local machine. Dendro provides a
-          command which helps the user to install Vector given their particular package manager.
-        </p>
-        <br />
-        <p>
-          The third step is to configure Dendro for that server using the <code class="command">dendro configure</code>
-          command. This step results in
-          two configuration files: 1. a file that Vector uses to monitor the selected services on that machine, 2. A
-          file that Dendro uses to deploy the pipeline, including AWS credentials and database tables that match the
-          selected services for that server.
-        </p>
-        <br />
-        <figure>
-          <img src="assets/images/case-study/dendro-configure.gif" class="case-study-image demo" />
-          <figcaption>Fig. 30: Dendro Configure</figcaption>
-        </figure>
-        <br />
-        <p>
-          Dendro now knows which services the user wants to monitor on their machine. The fourth step is to actually
-          build the
-          pipeline by running the command <code class="command">dendro deploy</code>. Again, the pipeline provides a
-          centralized location where all
-          of the monitoring data from the user's various servers will live.
-        </p>
-        <br />
-        <br />
-        <figure>
-          <img src="assets/images/case-study/dendro-deploy.gif" class="case-study-image demo" />
-          <figcaption>Fig. 31: Dendro Deploy</figcaption>
-        </figure>
-        <br />
-        <p>
-          Running the dendro deploy command sets up the AWS infrastructure, including the IAM role, the Kinesis Firehose
-          stream, the S3 bucket, the Lambda function, and the Timestream database with the correct tables.
-        </p>
-        <br />
-        <p>
-          It asks if the user’s AWS credentials have the appropriate permissions, providing a link where they can
-          confirm that they do, then it asks if they want to set up alerting, which will send them an email under
-          specific failure conditions.
-        </p>
-        <br />
-        <br />
-        <figure>
-          <img src="assets/images/case-study/dendro-teardown.gif" class="case-study-image demo" />
-          <figcaption>Fig. 32: Dendro Teardown</figcaption>
-        </figure>
-        <br />
-        <p>
-          The user can run the teardown command to remove all deployed AWS services. It will ask them to confirm that
-          the user
-          wants to delete the resources. The teardown command is for ease of use and to ensure that there are no extra
-          AWS services floating around in the user’s account.
-        </p>
-        <br />
-        <br />
-        <figure>
-          <img src="assets/images/case-study/vector-run.gif" class="case-study-image demo" />
-          <figcaption>Fig. 33: Running Vector</figcaption>
-        </figure>
-        <br />
-        <p>
-          Now that the pipeline is set up, the user is ready to send data to it. They do this by running vector.
-        </p>
-        <br />
-        <p>
-          <!-- TODO: stylize code -->
-          The user starts Vector by running the command <code class="command">vector --config vector-config.toml</code>,
-          passing in the
-          configuration file generated from the configure command. This file ensures that they are monitoring the
-          appropriate services on this machine. Vector is now streaming logs and metrics to the AWS pipeline.
-        </p>
-        <br />
-
-        <h3>6.2 Using Dendro</h3>
-
-        <br />
-        <p>
-          Now that the user has data passing through to the database, they can visit the frontend, which is accessed by
-          running
-          the command dendro start:server from any computer that has dendro installed and configured, and then visiting
-          localhost port 3000 on a browser.
-        </p>
-        <br />
-        <figure>
-          <img src="assets/images/case-study/frontend-home.gif" class="case-study-image demo" />
-          <figcaption>Fig. 34: Frontend Home</figcaption>
-        </figure>
-        <br />
-        <p>
-          There are three pages listed on the sidebar. A homepage, a charts page, and a query page. On the homepage, the
-          user can see what services are being monitored and check that the pipeline is successfully writing records to
-          the database.
-        </p>
-        <br />
-        <br />
-        <figure>
-          <img src="assets/images/case-study/frontend-charts.gif" class="case-study-image demo" />
-          <figcaption>Fig. 35: Frontend Charts</figcaption>
-        </figure>
-        <br />
-        <p>
-          On the charts page, the user sees real-time data for the services currently being monitored. This includes key
-          metrics from the <a href="https://grafana.com/blog/2018/08/02/the-red-method-how-to-instrument-your-services/"
-            target="_blank">RED method</a>, such as the rate of requests, the number of errors among those requests, and
-          the duration of the requests.
-        </p>
-        <br />
-        <br />
-        <figure>
-          <img src="assets/images/case-study/frontend-query.gif" class="case-study-image demo" />
-          <figcaption>Fig. 36: Frontend Query</figcaption>
-        </figure>
-        <br />
-        <p>
-          The query page enables the user to query the Timestream database. In this example, they query the nginx access
-          logs
-          for all 500 errors that occurred in the last 2 hours. A user can also export the data and begin to drill down
-          to find the source of the problem.
-        </p>
-        <br />
-
-
-        <!-- Section 7 -->
-        <h2 class="h2">7 Implementation Challenges</h2>
-        <p>
-          We had to overcome 3 major technical challenges while building Dendro.
-
-          <!-- TODO: Bullet points -->
-          AWS: the optimistic Response object
-          Real-time data transformations
-          What does Dendro visualize?
-        </p>
-        <br />
-
-        <h3>7.1 AWS: the optimistic Response object</h3>
-        <p>
-          One major challenge the team faced while building the <code>deploy</code> and <code>teardown</code> commands
-          was related to spinning up or destroying AWS services that depend on the existence of another service in order
-          to successfully deploy or that cannot be destroyed while another service depends on it. <code>deploy</code>
-          fires off 37 API calls, while <code>teardown</code> executes 25.
-        </p>
-        <br />
-        <figure>
-          <img src="assets/images/case-study/api-calls.png" class="case-study-image" />
-          <figcaption>Fig. 37: The services spun up/destroyed by Dendro's <code>deploy</code> and <code>teardown</code>
-            commands</figcaption>
-        </figure>
-        <br />
-        <p>
-          For example, certain services couldn’t be spun up before the requisite IAM permissions were created or
-          attached, or Timestream tables couldn’t be created until the database was successfully created.
-        </p>
-        <br />
-        <p>
-          When an HTTP request is dependent on a successful response to a previous one, you expect to be able to make
-          the first request, wait to receive the response, and only then send the second request.
-        </p>
-        <br />
-        <figure>
-          <img src="assets/images/case-study/optimistic-response.png" class="case-study-image" />
-          <figcaption>Fig. 38: Expected behavior when a second async request is dependent on a successful response to a
-            first</figcaption>
-        </figure>
-        <br />
-        <p>
-          When using the AWS SDK, AWS returns an AWS Response object that doesn’t necessarily indicate that the service
-          has been created! So when you predicate the next step on the receipt of the Response object and send the
-          subsequent request, it often fails.
-        </p>
-        <br />
-        <figure>
-          <img src="assets/images/case-study/long-polling.gif" class="case-study-image" />
-          <figcaption>Fig. 39: Our solution to premature responses: implementing long-polling (with exponential backoff)
-          </figcaption>
-        </figure>
-        <br />
-        <p>
-          To overcome this, we implemented long polling AWS with exponential back off. Dendro asks Amazon repeatedly
-          whether the operation has been completed, increasing the time between failed polls at an exponential rate in
-          order to avoid overwhelming the server or hitting a rate limit. Once the AWS Response object returns a state
-          that is not <span class="bold">LOADING</span>, Dendro can then react to that state change accordingly.
-        </p>
-        <br />
-
-        <h3>7.2 Transforming data in real-time</h3>
-        <p>
-          How does Dendro take raw, plain-text logs and prepare them for insertion to a time-series database? To achieve
-          this, the team had to build in two separate data transformation steps throughout the pipeline. The first
-          happens at the point of collection, while the second happens in the Lambda function triggered by Kinesis Data
-          Firehose writing to the S3 bucket. We have already discussed how both work but to reiterate:
-        </p>
-        <br />
-        <figure>
-          <img src="assets/images/case-study/apache-log.png" class="case-study-image" />
-          <figcaption>Fig. 40: Sample plaintext log line from a web server</figcaption>
-        </figure>
-        <br />
-        <p>
-          Logs are typically emitted as plain-text. During the log collection process, Dendro takes some steps to
-          prepare it for insertion into the database. It first has to parse the record using a regex pattern written
-          specifically to match this particular log format. Parsing that plain-text log with such a regex pattern gives
-          us a structured JSON object. Dendro then injects a `type` key into the JSON object to note the record source
-          and transport it off the host server.
-        </p>
-        <br />
-        <p>
-          The second data transformation happens in the Lambda function where Dendro takes an octet-stream, parses it,
-          and then writes to the database.
-        </p>
-        <br />
-        <p>
-          Part of the appeal of the Kinesis Data Firehose is that it can accept data from any source: JSON, XML and
-          numerous other formats. Firehose just accepts that data without checking or enforcing its validity.
-          Unfortunately, the easiest way to accept any data is to convert it to binary and keep appending it to a binary
-          blob. This is exactly what Firehose does and where it converts the JSON Dendro built while collecting records
-          into an octet-stream.
-        </p>
-        <br />
         <p>
-          We first start by converting the binary data into a string. This looks similar to an array of JSON records but
-          is missing a few tokens (brackets, commas, etc.) making it unparsable/invalid JSON.
+          An additional key benefit of Horus is giving the user complete ownership over their data. Using a dockerized Timescale instance, there is no storage time limit or implicit cost involved in storing the user’s telemetry data, contrasting most SaaS monitoring solutions. Horus takes out the configuration and formatting headache of storing telemetry data whilst still remaining totally free and under the user’s control. The cost of storing data is completely dependent on where it’s hosted, and the user can decide what works best for them.
         </p>
         <br />
-        <figure>
-          <img src="assets/images/case-study/binary-to-json.gif" class="case-study-image" />
-          <figcaption>Fig. 41: Using regex to parse a string back to JSON</figcaption>
-        </figure>
-        <br />
-        <p>
-          We can use regex to insert those missing tokens and then successfully parse the octet-stream back into JSON.
-          Once the record is parsable, Dendro checks that the <code>type</code> key that was injected during the first
-          data transformation phase. This key helps us identify the source of the record, what data to pluck out and
-          store and what table within Timestream to insert it in.
-        </p>
-        <br />
-
-        <h3>7.3 What to Visualize</h3>
-        <p>
-          When Naptime’s servers are down and they view the Dendro dashboard, what are the key metrics they need to see
-          in order to resolve their outage? The challenge here wasn’t in writing SQL queries, but actually taking a step
-          back and deciding how to represent what Dendro tracks and measures visually.
-        </p>
-        <br />
         <p>
-          There are some main schools of thought on what metrics matter most for monitoring, named things like “The Four
-          Golden Signals”, “USE”, and the “RED Method”. Tom Wilkie, a former site reliability engineer (SRE) at Google,
-          created the microservice-oriented monitoring philosophy called RED. It focuses on rate, errors & duration, and
-          the team found that it had the right balance of simplicity and specificity for our use-case, as well as that
-          it was particularly well suited to time-series data.
-
-          <!-- TODO: bullet points -->
-          <span class="bold">“Rate”</span> refers to the number of requests per second a service is receiving.
-          <span class="bold">“Errors”</span> is the number of the requests that receive an error response from the
-          service.
-          <span class="bold">“Duration”</span> is the length of time the service takes to complete a response to a
-          request.
+          The docker network also contains an interactive visualization layer that automatically graphs the incoming metrics the application generates. 
         </p>
-        <br />
-        <p>
-          We found that RED matched our use case nicely, perhaps due to the fact that microservice architectures are
-          typically distributed systems.
-        </p>
-        <br />
+        <br>
         <p>
-          Tom Wilkie has written that “understanding the error rate, the request rate, and then some distribution of
-          latency gives you a nice, consistent view of how your architecture is behaving.” That’s exactly what we wanted
-          Dendro to provide: a consistent view of how your architecture is behaving over time.
+          There are three built-in metrics graphs that are available out of the box:
         </p>
-        <br />
-
-
-        <!-- Section 8 -->
-        <h2 class="h2">8 Future Work</h2>
-        <p>
-          Of course, an open source project is never fully finished. While we think Dendro is currently
-          feature-complete, ready for people to use and immediately benefit from, there are certain future work items
-          that would strengthen the overall framework.
-        </p>
-        <br />
         <ul>
-          <li>
-            We would like to provide our users the ability to inject more and more varied custom transforms into the
-            pipeline. It’s possible as of now if they go and edit the configuration files, but that’s manual and Dendro
-            is all about reducing toil.
-          </li>
-          <li>
-            We’d also like to provide built-in support for MySQL, which Vector does not currently support as a native
-            source but which they do plan to build as part of a future milestone.
-          </li>
-          <li>
-            And finally, on the dashboard, we would like to provide syntax highlighting for SQL queries as well as more
-            out of the box graphs and visualizations.
-          </li>
+          <li>Total requests per 10 seconds</li>
+          <li>Total errors per 10 seconds</li>
+          <li>Latency Health over 10 seconds</li>
         </ul>
+        <br>
+        <p>
+          Each graph adjusts accordingly to the selected time window, giving the bigger picture of how the application is performing across a wider time scale. 
+        </p>
+        <br>
+        <p>
+          Horus removes the complexity and provides the user with everything they need to get going from the outset. The user can flow seamlessly between metrics and traces in a natural and intuitive way, simply by clicking on the graph and being taken directly to the traces that occurred in that time window. 
+        </p>
+        <br>
+        <p>
+          Want more information on a particular trace? Just click the trace you’re interested in and you’ll be directed to a waterfall chart where you can compare each of the spans and get any further details you require. 
+        </p>
+        <br>
+        <p>
+          Horus provides a simple, elegant, and intuitive experience to navigate data while keeping the time cost to set up at an absolute minimum. Horus also comes with a rich set of detailed instructions and documentation to get you up and running.  
+        </p>
+        <br>
+        <h3>Horus and Evo T-Shirts</h3>
+        <p>
+          Horus is the perfect solution for Oliver. He’s able to get both metric and tracing coverage without needing to learn any other technologies. Horus is well-documented and designed to be set up in just minutes, so there’s no time wasted. Oliver also gets to maintain control over the data without needing to export it to a third party. Best of all, Horus is free from the outset. There are no time or storage limitations, so Evo T-shirts can invest the time and capital back into the business. 
+        </p>
+        <br>
+        <p>
 
-        <!-- Section 9 -->
-        <h2>9 Team</h2>
+        </p>
+        <br>
+        <p>
+
+        </p>
+        <br>
+        <p>
+
+        </p>
+        <br>
+        <p>
+
+        </p>
+        <br>
+        <p>
+
+        </p>
+        <br>
+        <!-- Section 5 -->
+        <h2 class="h2">5 Horus Architecture</h2>
+        <p>
+          Horus has four distinct but interrelated components: the horus agent, connector, database, and UI. We wanted to develop an end-to-end observability tool, which means all the way from generating metrics and traces to a UI where the user can visualize them.  
+        </p>
+        <br>
+        <h4>Horus Agent</h4>
+        <p>
+          The horus agent embodies the first stage of a telemetry architecture: the emitting stage. Once installed in the application, it generates metrics and traces, collects them, and sends them to the connector. It consists of an npm package that the user installs and configures slightly. Currently, Horus is for Node applications, and part of the future work is to develop instrumentation — the horus agent — for additional languages.
+        </p>
+        <br>
+        <p>
+          Many open-source options start directly after this stage. Their documentation points the user to OpenTelemetry documentation and has them set it up themselves. We saw this stage as imperative to automate and simplify for two main reasons. First, OpenTelemetry is difficult to use and understand for a newcomer to this sphere. As it’s still an emerging technology, the documentation for it is somewhat sparse. Thus, it is difficult to make it work without significant trial and error. 
+        </p>
+        <br>
+        <p>
+          Second, there are many types of metrics that the user could generate, and this can be difficult to figure out. Horus is made to work with three: number of requests, number of errors, and latency. These three are the most common and the most important metrics across even the SaaS platforms. By instrumenting these ahead of time, we take the guesswork out of which metrics to generate. 
+        </p>
+        <br>
+        <p>
+          Additionally, we implemented a queuing and batching system for the traces. By sending traces to the connector in this way, we allow much higher requests per second to be successfully received. Through load testing with Artillery.io, we saw how this feature of the instrumentation dramatically improved successful requests per second — by literally 1800%.
+        </p>
+        <br>
+        <h5>OpenTelemetry</h4>
+        <p>
+          We chose OpenTelemetry as our instrumentation and telemetry data type primarily because we wanted a singular tool for generating both metrics and trace. Some tools only generate traces (Jaeger, Zipkin) whereas other tools only generate metrics (Prometheus). 
+        </p>
+        <br>
+        <p>
+          Another reason that prompted us to use OpenTelemetry is its inclusion of a Node SDK which provides automatic generation of traces. This abstracts away the configuration of what information is on each trace or how they are even generated, and it sufficiently covers the details we wanted.
+        </p>
+        <br>
+        <p>
+          The auto instrumentation calls a single function which automatically detects and generates telemetry data. It then sends this data to the chosen endpoint (where the connector is located, described below), avoiding the need to add extra lines of code to the application.
+        </p>
+        <br>
+        <p>
+          The Node auto instrumentation package generates spans for a wide variety of technologies: HTTP, MySQL, Express, and more. We also chose to add MongoDB instrumentation for slightly wider coverage.
+        </p>
+        <br>
+        <p>
+          Lastly, OpenTelemetry is quickly becoming the standard in the software industry for telemetry data, so it was a good technology to learn.
+        </p>
+        <br>
+        <p>
+          The main disadvantage of OpenTelemetry is its novelty. Because it is a project rapidly growing and expanding, the documentation can sometimes be confusing or downright nonexistent. However, as mentioned before, this problem is solved from the user’s perspective thanks to the development of the npm package <code>horus-agent</code>, which extracts away the complexity.
+        </p>
+        <br>
+        <h4>Connector</h4>
+        <p>
+          The horus agent sends all the data it generates to the connector. The connector then parses and transforms the data for easy storing and querying. It inserts both the metrics and traces into tables in the Timescale database for future use.
+        </p>
+        <br>
+        <p>
+          When using OpenTelemetry, it’s common to have an OpenTelemetry Collector. However, we decided to forego it completely. One of its main purposes is to ingest telemetry data from different sources (such as Prometheus and Jaeger) and then transform it into a common format. Since we used OpenTelemetry exclusively, this was unnecessary.
+        </p>
+        <br>
+        <h4>Database</h4>
+        <p>
+          For a database, we chose a time-series database because it’s optimized for time-stamped data. Because time is a central part of our schema (how we chose to connect traces and metrics), having a time-focused schema and database is key. 
+        </p>
+        <br>
+        <p>
+          Time-series databases are also ideal when appending frequent and large amounts of data, but not modifying/deleting it. This is exactly what our use case is since when a metric or trace is created, there is no need to ever modify it.
+        </p>
+        <br>
+        <p>
+          We chose to use Timescale specifically, which is based on PostgreSQL, and is also one of the most popular open-source object-relational database systems. The proven maturity and high performance of Timescale and PostgreSQL made it a natural choice.
+        </p>
+        <br>
+        <h4>UI</h4>
+        <p>
+          The last part of the architecture, and arguably the most important to the user, is the UI. This is the primary component that the user interacts with and is the source of all data visualization for Horus.
+        </p>
+        <br>
+        <p>
+          After pursuing several other options (see <i>Challenges and Trade-offs</i> for details), we settled on creating our own UI. This allowed us to choose our database, customize the schema, and mold the UI into the intuitive vision we had.
+        </p>
+        <br>
+        <p>
+          The UI is composed of two parts: the client and the server.
+        </p>
+        <br>
+        <p>
+          The server communicates with the TimescaleDB instance. It is an Express server that makes queries to retrieve data and then sends them on to the client in JSON format, where the data is then displayed in various graphs.
+        </p>
+        <br>
+        <p>
+          The client is a NextJS application, which is a React-based framework. It retrieves data from the server via HTTP and displays it in a way that correlates metrics and traces so the user can find what they’re after easily.
+        </p>
+        <br>
+        <p>
+          The UI has three pages: the metrics page, the traces page, and the spans page.
+        </p>
+        <br>
+        <p>
+          Initially, the user loads the metrics page, which acts as the home page. Here the user can see three dashboards with the three metrics: requests per 10 seconds, errors per 10 seconds, and latency of requests over 10 seconds.
+        </p>
+        <br>
+        <p>
+          The user can choose the timeframe of the displayed data: the last 15 minutes, last hour, last 24 hours, or last week. If they see something of interest, they can click on any of the data points in the dashboard and the UI will display to the second page: the traces page.
+        </p>
+        <br>
+        <p>
+          The traces page displays the traces that happened within a particular timestamp. This timestamp is based on which data point was clicked for the user. In the list of traces, there is some basic information about each of them. The user can click on any of the traces and they will get to the spans page.
+        </p>
+        <br>
+        <p>
+          In this page, it is possible to see all the spans that are part of a particular trace. The user can see a waterfall chart with the time that each span needed until it was completed. It is also possible to click on a particular span and see all the info that is stored about it.
+        </p>
+        <br>
+        <!-- Section 6 -->
+        <h2 class="h2">6 Challenges & Trade-offs</h2>
+        <p>
+          We encountered several engineering challenges and forks in the road while creating Horus. What follows are a few of the most central to Horus’s design and infrastructure.
+        </p>
+        <br>
+        <h4>Connecting Metrics and Traces</h4>
+        <p>
+          A key feature of Horus is the clear link between metrics and traces. However, generating related metrics and traces is only the beginning — you have to store and query them while maintaining their relationship. How do you show the “right” traces? 
+        </p>
+        <br>
+        <p>
+          Several observability tools rely on an assigned ID to maintain this connection. When the metrics and traces are being generated, before they’re stored in the database, the trace is given a metric ID and the metric is given a trace ID. 
+        </p>
+        <br>
+        <p>
+          What happens, though, if a metric is related to multiple traces, or if a trace is related to multiple metrics? For example, a trace that contains an error span is easily included in all three of the RED metrics: it’s included in the amount of requests, the amount of errors, and the average wait time for a response. Does that trace get an array of metric IDs to choose from? Similarly, a metric data point generally covers an interval of time and does not have a one-to-one relationship with a trace. Should the metric point contain an array of all trace IDs that it covers?
+        </p>
+        <br>
+        <p>
+          Chronosphere, an observability platform, solves this issue by only storing one “important” trace per metric data point. If the trace passes some checks (e.g. it has a status code of 500), it is chosen as the most important trace and stored. All other traces that the metric data point referenced are discarded. 
+        </p>
+        <br>
+        <p>
+          From a storage standpoint (especially with large microservices architectures), this trade-off makes sense. However, we didn’t like the idea of choosing what was important to the user. Yes, 500 server code traces are important, but what if, in less egregious-error situations, our algorithm chose the wrong “most important” trace? Doesn’t it depend on what the user is looking for? 
+        </p>
+        <br>
+        <p>
+          The flow of Horus is from metric to traces, so the metric needs to hold information to point to the related traces. An array of 700+ IDs didn’t seem like a wise approach for when the user was receiving 70 RPS (requests per second), especially when that would need to be potentially also stored across EPS (errors per second) and latency (the metrics of Horus are captured every 10 seconds).
+        </p>
+        <br>
+        <p>
+          Thus, we settled on an organic connection: time. Since metrics cover an interval of time, we only have to query traces that fall within that interval of time in order to display the “right” traces. It sounds so simple!
+        </p>
+        <br>
+        <p>
+          And it would have been... were it not for timezones.
+        </p>
+        <br>
+        <h4>Timezones</h4>
+        <p>
+          Timezones brought two specific challenges: database storage and UI querying.
+        </p>
+        <br>
+        <h5>Database Storage</h5>
+        <p>
+          The metrics data points we generated with OpenTelemetry did not contain a timestamp for their creation. Because we needed to connect them to traces through a timeframe, we needed to give them one. Within the connector, we added a simple JavaScript <code>Date.now()</code> and converted it to a PostgreSQL timestamp upon insertion. 
+        </p>
+        <br>
+        <p>
+          However, this Date object is subject to the time zone it detects. If the connector was being hosted on a machine with EST, all of the metrics data points had timestamps according to EST. If the connector was on a GMT machine, the timestamps all reflected GMT. This proved to be problematic because then the timezone is completely subjective — how can the UI server know what time frame to query for? Did the traces occur at 12:17 (EST) or 17:17 (GMT)?
+        </p>
+        <br>
+        <p>
+          We chose to conform to UTC for normalization and simplicity’s sake. Instead of depending on the local machine’s timezone, we added a conversion in the connector that ensures the timestamp for the metric conforms to UTC no matter what.
+        </p>
+        <br>
+        <h5>UI Querying</h5>
+        <p>
+          Some tools, such as Docker and PostgreSQL, default to the UTC timezone. Other technology, however, defaults to the browser which defaults to the local machine’s timezone. Nivo graphs fall into the latter category. 
+        </p>
+        <br>
+        <p>
+          Nivo graphs are a key part of the Horus UI because these graphs are the main substance of the front page — which is all of the metrics. Although the metric data point timestamps were in UTC (in the database), the Nivo graph would convert it to the host machine’s time zone when displaying them. This worked fine for one of the creators of Horus living in England (GMT matches UTC timezone), but it did not work for any of his colleagues. 
+        </p>
+        <br>
+        <p>
+          This affected how we queried traces from the database because we used that timestamp (now often inaccurate) to find all relevant traces. For example, if the metric datapoint is in EST and it then queries the database in EST (but the database is in UTC), the query is off by 5 hours, thus displaying the wrong traces (or no traces at all, as can be seen in the diagram below). We tried different dynamic approaches to conversions that would allow the program to self-correct. Sometimes our solutions would over-correct: it seemed the program thought it was in EST when it was in GMT, so it added five hours when it shouldn’t have.
+        </p>
+        <br>
+        <p>
+          We ultimately decided to allow the Nivo graph to display metrics in the timezone of the host machine, but then corrected it for trace queries. For simplicity’s sake, we chose to limit the user to only relative timeframes (e.g. the last 15 minutes, the last 24 hours, etc.). Said another way, we fixed it behind the scenes and hid the complexity from the user. We have a newfound respect for all who intimately work with timezone adaptability.
+        </p>
+        <br>
+        <h4>Visualization Trade-offs</h4>
+        <p>
+          Our initial prototype used a visualization layer provided by Grafana, which is an open-source dashboard monitoring solution. 
+        </p>
+        <br>
+        <p>
+          Grafana is one of the leading service providers for querying, visualizing, and interpreting telemetry data. It has the ability to receive and translate metrics, traces, and logs from a number of different storage sources and display them in a way that a user can easily gain insights and make decisions about their infrastructure. 
+        </p>
+        <br>
+        <p>
+          In essence, Grafana provided the perfect solution to integrate the presentation stage into our application. It could visualize, and graph, both metrics and traces and had the ability to query our database of choice, TimescaleDB, using the built-in SQL querying utility. 
+        </p>
+        <br>
+        <p>
+          Unfortunately, as we integrated Grafana into our own application infrastructure, it became apparent that there were limitations. While Grafana does offer a range of storage solutions, only some types of telemetry data can be queried from each database. In our case, we were able to query TimescaleDB for metrics, but we were unable to retrieve trace data that could be interpreted by Grafana. Grafana could only visualize trace data received from proprietary tracing solutions like Jaeger, Zipkin, X-Ray, or Tempo. 
+        </p>
+        <br>
+        <p>
+          This left us with two potential options to explore. 
+        </p>
+        <br>
+        <p>
+          First, we could commit to using Grafana as our visualization layer and generate traces using a pre-existing service like Jaeger or Zipkin. This was already an unattractive option because we wanted to use OpenTelemetry as our only mechanism for emitting telemetry data. Introducing more technologies meant introducing more dependencies and thereby adding greater complexity to our system. 
+        </p>
+        <br>
+        <p>
+          Moreover, we only wanted a single database to store both traces and metrics to keep our data tightly coupled together. Including Jaeger or Zipkin would mean that we would need another database (both of these technologies were only compatible with Cassandra and Elasticsearch databases). We knew that by adding another database, the complexity to our system architecture would increase. Furthermore, it would open us up to more points of failure and potentially create time synchronicity issues. 
+        </p>
+        <br>
+        <p>
+          Although this route clearly held difficulties along the way, we knew that the technologies were compatible, and that gave us confidence. It would just be a matter of configuring them to operate with one another. However, this would come at a cost. We would lose the simplicity and elegance of our initial architecture. 
+        </p>
+        <br>
+        <p>
+          Our second option was more radical: we could build our own user interface. 
+        </p>
+        <br>
+        <p>
+          Going down this route had several advantages. First, we could be faithful to our system’s architecture. By configuring our connector component to receive data, format it, and store it in a single database, we would be able to remove several unnecessary components from our infrastructure. This would reduce the overall complexity and mitigate points of failure. We would rely on the frontend’s querying service to retrieve the data it needed from the database, format it to be interpreted by our graphical and visual components, and then pass it to our frontend to be rendered on our application interface. 
+        </p>
+        <br>
+        <p>
+          Secondly, we would have complete control over how our user interface both operated and looked. This gave us the option to only include the key features we wanted to provide to the user, making the application a lot less visually intimidating to the type of user stated in our use case. 
+        </p>
+        <br>
+        <p>
+          This route also had potential drawbacks. The upfront engineering effort would be much greater than working with preexisting components; we would need to implement the UI using a React Framework with a backend querying service to do the heavy lifting. Moreover, we would need to gain fluency in specific visualization tools such as graphing and chart packages to make the data more human-friendly.  
+        </p>
+        <br>
+        <p>
+          Ultimately, the decision came down to adding complexity and working with preexisting components or keeping complexity to a minimum and investing the time and energy to produce an interactive interface. 
+        </p>
+        <br>
+        <p>
+          After discussing and evaluating our options, we came to the conclusion that keeping the architecture as straightforward and lightweight as possible was essential to meeting our use case. Moreover, the autonomy and control gained by producing our own user interface was in itself worth the engineering effort and energy. We would have greater say in how our user would interact with our application and again further fulfill the requirements of the user in our use case. In hindsight, we are grateful for that decision and it was worth it.
+        </p>
+        <br>
+        <!-- Section 6 -->
+        <h2 class="h2">6 Horus Installation & Set Up</h2>
+        <p>
+          There are two steps to setting up Horus:
+        </p>
+        <ul>
+          <li>Install and set up <code>horus-agent</code> in the root service of the application</li>
+          <li>Deploy the Horus infrastructure via Docker</li>
+        </ul>
+        <br>
+        <h4>Setting Up Instrumentation</h4>
+        <p>
+          First, install the <code>horus-agent</code> with <code>npm</code>. This should be installed in the backend/server-side of the root service as well as each dependent service.
+        </p>
+        <br>
+        <p>
+          Then integrate it into your routes according to the <a href="www.npmjs.com/package/horus-agent">npm README</a>. Note that the MetricsAgent is only needed in the root service, whereas the TracingAgent should be placed in each dependent service so as to capture every single span.
+        </p>
+        <br>
+        <p>
+          Second, update the <code>config.json</code> file to point to the endpoint of choice. If hosting Horus on a local machine, the endpoint can remain as is with <code>localhost</code>. If deploying to a different server (e.g. a DigitalOcean Droplet, an AWS EC2 instance, etc.), change the endpoint to point to that IP address or domain name. 
+        </p>
+        <br>
+        <p>
+          The <code>config.json</code> file can be found within <code>node_modules/horus-agent</code>.
+        </p>
+        <br>
+        <h4>Deploying with Docker</h4>
+        <p>
+          Download Docker and/or Docker Compose if not already on the machine. Clone the <a href="github.com/try-horus/horus-compose">horus-compose</a> repo. In the terminal and in the same folder as the <code>docker-compose.yaml</code> file, run <code>docker-compose up</code>. 
+        </p>
+        <br>
+        <p>
+          This deploys the full Horus infrastructure within a Docker network.
+        </p>
+        <br>
+        <p>
+          Voíla! Horus is set up. 
+        </p>
+        <br>
+        <!-- Section 7 -->
+        <h2 class="h2">7 Future Work</h2>
+        <p>
+          And that’s Horus! Although it fulfills all of Oliver’s needs, an open-source project is never fully finished. These are some of the features that we would like to pursue in future iterations:
+        </p>
+        <ul>
+          <li>Developing more pages in the UI: e.g. a page where the user can choose a custom timeframe and view all the traces that happened in that timeframe</li>
+          <li>Support more languages different in addition to JS for the generation of telemetry data</li>
+          <li>Investigate the hardware and system requirements for hosting Horus for larger microservices</li>
+        <br>
+        
+        <!-- Section 8 -->
+        <h2>8 Team</h2>
         <br>
         <br>
         <div class="section team-section">
