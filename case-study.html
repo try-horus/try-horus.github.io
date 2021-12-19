@@ -225,7 +225,7 @@
         </p>
         <h2>Pipeline picture goes here</h2>
         <br>
-        <h4>The Emitting Stage
+        <h4>The Emitting Stage</h4>
         <p>
           The emitting stage is the first stage in the telemetry pipeline architecture. It is largely responsible for generating telemetry data in a production application. This stage can either allow the telemetry data to be emitted and stored locally, or it can be forwarded to the shipping stage to be batched, processed, and exported to a remote location. 
         </p>
@@ -295,6 +295,7 @@
           <li>How should he connect metrics and traces?</li>
           <li>What pieces of information should he store about traces?</li>
           <li>And on and on...</li>
+        </ul>
         <br />
         <p>
           This incurs a time cost that’s difficult to measure. Oliver and his team could combine well-established telemetry generating options like Prometheus (for metrics), Jaeger (for traces), and Grafana (for visualization), but this also means learning all three products (and more) and configuring them to work effectively together. 
@@ -374,25 +375,6 @@
           Horus is the perfect solution for Oliver. He’s able to get both metric and tracing coverage without needing to learn any other technologies. Horus is well-documented and designed to be set up in just minutes, so there’s no time wasted. Oliver also gets to maintain control over the data without needing to export it to a third party. Best of all, Horus is free from the outset. There are no time or storage limitations, so Evo T-shirts can invest the time and capital back into the business. 
         </p>
         <br>
-        <p>
-
-        </p>
-        <br>
-        <p>
-
-        </p>
-        <br>
-        <p>
-
-        </p>
-        <br>
-        <p>
-
-        </p>
-        <br>
-        <p>
-
-        </p>
         <br>
         <!-- Section 5 -->
         <h2 class="h2">5 Horus Architecture</h2>
@@ -417,7 +399,7 @@
           Additionally, we implemented a queuing and batching system for the traces. By sending traces to the connector in this way, we allow much higher requests per second to be successfully received. Through load testing with Artillery.io, we saw how this feature of the instrumentation dramatically improved successful requests per second — by literally 1800%.
         </p>
         <br>
-        <h5>OpenTelemetry</h4>
+        <h5>OpenTelemetry</h5>
         <p>
           We chose OpenTelemetry as our instrumentation and telemetry data type primarily because we wanted a singular tool for generating both metrics and trace. Some tools only generate traces (Jaeger, Zipkin) whereas other tools only generate metrics (Prometheus). 
         </p>
@@ -685,7 +667,11 @@
           <li>Developing more pages in the UI: e.g. a page where the user can choose a custom timeframe and view all the traces that happened in that timeframe</li>
           <li>Support more languages different in addition to JS for the generation of telemetry data</li>
           <li>Investigate the hardware and system requirements for hosting Horus for larger microservices</li>
+        </ul>
         <br>
+      </h4>
+    </div>
+      
         
         <!-- Section 8 -->
         <h2>8 Team</h2>
