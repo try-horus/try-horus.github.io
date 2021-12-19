@@ -1947,13 +1947,13 @@ a:hover {
 }
 
 .iframe-container{
-  padding-top: 10%;
   position: relative;
   width: 100%;
   padding-bottom: 56.25%; 
   height: 0;
 }
 .iframe-container iframe{
+  padding-top: 10%;
   position: absolute;
   top:0;
   left: 0;
