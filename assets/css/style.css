@@ -118,12 +118,12 @@ figcaption {
 }
 */
 #sidebar ul a {
-  color: #161d6f;
+  color: #081b53;
   text-decoration: none;
 }
 
 #sidebar ul a:hover {
-  color: #98ded9;
+  color: #b983ff;
 }
 
 #sidebar ul ul {
@@ -579,7 +579,7 @@ label {
 }*/
 
 #spin {
-  background-image: linear-gradient(111deg, #161d6f, #98ded9);
+  background-image: linear-gradient(111deg, #161d6f, #b983ff;);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
