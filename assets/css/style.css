@@ -579,7 +579,7 @@ label {
 }*/
 
 #spin {
-  background-image: linear-gradient(111deg, #081b53, #b983ff;);
+  background-image: linear-gradient(111deg, #081b53, #b983ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -877,7 +877,7 @@ a:hover {
   -ms-flex-align: center;
   align-items: center;
   border-radius: 25px;
-  background-image: linear-gradient(111deg, #081b53, #98ded9);
+  background-image: linear-gradient(111deg, #081b53, #b983ff);
 }
 
 .black-h2 {
@@ -1233,7 +1233,7 @@ a:hover {
 .tertiary-button-text {
   position: relative;
   z-index: 1;
-  color: #3ee6e1 !important;
+  color: #b983ff !important;
 }
 
 .tertiary-button:hover {
