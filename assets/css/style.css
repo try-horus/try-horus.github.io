@@ -1290,7 +1290,6 @@ a:hover {
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  white-space: nowrap;
 }
 
 ._404-text {
@@ -1831,6 +1830,7 @@ a:hover {
   h1 {
     font-size: 32px;
     line-height: 5px;
+    white-space: nowrap;
   }
   h2 {
     font-size: 27px;
