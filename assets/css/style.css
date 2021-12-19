@@ -7,7 +7,7 @@ html {
 body {
   margin: 0;
   background-color: #fff;
-  font-family: Inter, sans-serif;
+  font-family: 'Roboto', sans-serif;
   color: #b5bbbf;
    font-size: 14px;
   line-height: 20px;
@@ -701,7 +701,7 @@ ul.team-member-icons li {
 }
 
 h1 {
-  font-family: Inter, sans-serif;
+  font-family: 'Rubik', sans-serif;
   color: #081b53;
   font-size: 64px;
   font-weight: 700;
@@ -709,9 +709,9 @@ h1 {
 }
 
 h2 {
+  font-family: 'Rubik', sans-serif;
   margin-top: 20px;
   margin-bottom: 10px;
-  font-family: Inter, sans-serif;
   color: #081b53;
   font-size: 48px;
   line-height: 1.2;
@@ -758,7 +758,7 @@ h6 {
 
 p {
   margin-bottom: 10px;
-  font-family: Inter, sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 18px;
   line-height: 1.65;
 }
@@ -778,7 +778,7 @@ blockquote {
 }
 
 a {
-  font-family: Inter, sans-serif;
+  font-family: 'Roboto', sans-serif;
   color: #081b53;
   /*  font-size: 20px;*/
   line-height: 1.3;
