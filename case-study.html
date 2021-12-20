@@ -117,8 +117,8 @@
           Several engineers on his team try recreating the problem, too. Some of them receive the same errors customers were complaining about, while others do not. They’re not sure why it’s happening for some and not others. Oliver’s last resort is to look at the logs of each microservice, hoping they’ll contain information about the alleged errors. 
         </p>
         <figure>
-          <img src="assets/images/case-study/evo-error.gif" class="case-study-image" />
-          <figcaption>Fig. 2: Users are encountering errors with Evo T-Shirts</figcaption>
+          <img src="assets/images/case-study/endless-logs.png" class="case-study-image" />
+          <figcaption>Fig. 2: Endless logs to wade through</figcaption>
         </figure>
         <br />
         <p>
@@ -248,7 +248,7 @@
         </p>
         <figure>
           <img src="assets/images/case-study/telemetry-pipeline.png" class="case-study-image" />
-          <figcaption>Fig. #: The Telemetry Pipeline — to be revised</figcaption>
+          <figcaption>Fig. #: The Telemetry Pipeline</figcaption>
         </figure>
         <br>
         <h4>The Emitting Stage</h4>
@@ -675,8 +675,8 @@
           This affected how we queried traces from the database because we used that timestamp (now often inaccurate) to find all relevant traces. For example, if the metric datapoint is in EST and it then queries the database in EST (but the database is in UTC), the query is off by 5 hours, thus displaying the wrong traces (or no traces at all, as can be seen in the diagram below). We tried different dynamic approaches to conversions that would allow the program to self-correct. Sometimes our solutions would over-correct: it seemed the program thought it was in EST when it was in GMT, so it added five hours when it shouldn’t have.
         </p>
         <figure>
-          <img src="assets/images/case-study/stand-in.jpeg" class="case-study-image" />
-          <figcaption>Fig. #: Filler to where an image should go</figcaption>
+          <img src="assets/images/case-study/missing-traces.gif" class="case-study-image" />
+          <figcaption>Fig. #: Traces seem to be "missing" when there are metrics due to a timezone discrepancy</figcaption>
         </figure>
         <br>
         <p>
