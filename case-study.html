@@ -101,8 +101,8 @@
           Evo T-shirts, an e-commerce site, has recently skyrocketed in popularity. What started as one person’s side-hustle has now outgrown a monolithic architecture. The powers that be have decided to move to a microservice architecture for better organization. Oliver has led the team of engineers who built Evo T-shirts for years, and he continues to oversee each sub-team in their now assigned microservice. 
         </p>
         <figure>
-          <img src="assets/images/case-study/no-errors.gif" class="case-study-image" />
-          <figcaption>Part of Evo T-Shirt's architecture</figcaption>
+          <img src="assets/images/case-study/no-errors.gif" class="case-study-image medium" />
+          <figcaption>A section of Evo T-Shirt's architecture</figcaption>
         </figure>
         <br />
         <p>
@@ -118,6 +118,7 @@
         </p>
         <figure>
           <img src="assets/images/case-study/endless-logs.jpg" class="case-study-image" />
+          <figcaption>The logs that Oliver tries to parse</figcaption>
         </figure>
         <br />
         <p>
@@ -228,8 +229,8 @@
           By establishing a relationship between the macro nature of metrics and detailed nuances of traces, Oliver is able to achieve the observability coverage he's looking for by recording the interactions that are taking place across the distributed services. Oliver can then "jump" between a high-level and low-level perspective by switching between metrics and traces. 
         </p>
         <figure>
-          <img src="assets/images/case-study/evo-with-horus.gif" class="case-study-image" />
-          <figcaption>Evo T-Shirts with Horus instrumentation via horus agent</figcaption>
+          <img src="assets/images/case-study/evo-with-horus.gif" class="case-study-image medium" />
+          <figcaption>Evo T-Shirts with Horus instrumentation via <code>horus-agent</code></figcaption>
         </figure>
         <br>
         <p>
@@ -258,7 +259,7 @@
           For Oliver, it's important that his own application is decoupled from the telemetry system so that both components are able to operate independently of one another. It's common practice today to implement a telemetry generating emitter through the form of an SDK. OpenTelemetry is an example of a leading developer tool kit that could be implemented to generate and emit telemetry data. We'll discuss OpenTelemetry in greater depth later on.
         </p>
         <figure>
-          <img src="assets/images/case-study/emitting.png" class="case-study-image case-study-image-smaller" />
+          <img src="assets/images/case-study/emitting.png" class="case-study-image small" />
         </figure>
         <br>
         <h4>The Shipping Stage</h4>
@@ -270,7 +271,7 @@
           Telemetry data is generated continuously and at a high frequency. Therefore, the database needs to be able to handle this high write intensity while also being able to query data when required. Should the frequency of the incoming data surpass the processing capability of the database, it may be wise to consider the implementation of either a queue or event bus to manage the data influx. Both these options also provide the benefit of reducing the possibility of data being dropped if there is a database backlog or being lost if the database goes down.
         </p>
         <figure>
-          <img src="assets/images/case-study/shipping.png" class="case-study-image" />
+          <img src="assets/images/case-study/shipping.png" class="case-study-image medium" />
         </figure>
         <br>
         <h4>The Presentation Stage</h4>
@@ -278,7 +279,7 @@
           The presentation stage is the last phase of the telemetry pipeline and is, crucially, the only one where most people will interact to make important design and business decisions. This stage's purpose is to transform telemetry data into useful, measurable, and human-friendly insights regarding how an application is performing. The presentation stage is often a separate architectural component to the emission and shipping stages and is regarded as the user interface of telemetry architecture. The presentation component will pull from a given data source, format the data to be interpreted by the UI, and visualize the data in a human-friendly way.
         </p>
         <figure>
-          <img src="assets/images/case-study/presentation.png" class="case-study-image case-study-image-smaller" />
+          <img src="assets/images/case-study/presentation.png" class="case-study-image small" />
         </figure>
         <br>
         <p>
@@ -321,6 +322,7 @@
         </p>
         <figure>
           <img src="assets/images/case-study/overwhelming-uis.png" class="case-study-image" />
+          <figcaption>Complex UI dashboards</figcaption>
         </figure>
         <br />
         <h3>3.2 DIY</h3>
@@ -346,7 +348,7 @@
           This incurs a time cost that’s difficult to measure. Oliver and his team could combine well-established telemetry generating options like Prometheus (for metrics), Jaeger (for traces), and Grafana (for visualization), but this also means learning all three products (and more) and configuring them to work effectively together. 
         </p>
         <figure>
-          <img src="assets/images/case-study/comparison-saas-diy.png" class="case-study-image" />
+          <img src="assets/images/case-study/comparison-saas-diy.png" class="case-study-image medium" />
           <figcaption>Comparison of SaaS and DIY options</figcaption>
         </figure>
         <br />
@@ -365,9 +367,8 @@
         <p>
           Horus is an open-source observability solution for microservices. Users can generate, store, and visualize correlated telemetry data, allowing them to see the real-time health of their application. 
         </p>
-        <br />
         <figure>
-          <img src="assets/images/case-study/logo-color.png" class="case-study-image case-study-image-smaller" />
+          <img src="assets/images/case-study/logo-color.png" class="case-study-image small" />
         </figure>
         <p>
           Designed with the user in mind, it makes the integration, generation, and visualization of application monitoring seamless and straightforward. 
@@ -384,11 +385,11 @@
         <p>
           Horus goes beyond just the emission of telemetry data. Through Docker, it sets up a network of Horus components on the user’s server to receive, format, store, and visualize incoming telemetry data. 
         </p>
-        <br />
         <figure>
           <img src="assets/images/case-study/horus-docker.png" class="case-study-image" />
           <figcaption>Horus infrastructure in a Docker network</figcaption>
         </figure>
+        <br>
         <p>
           Horus removes the friction of combining components like Jaeger, Prometheus, and Grafana together to achieve observability by providing purpose-built components that reduce the potential set up time from hours or days to minutes. 
         </p>
@@ -411,7 +412,7 @@
         </ul>
         <figure>
           <img src="assets/images/case-study/gif-of-UI-1.gif" class="case-study-image" />
-          <figcaption>Interacting with the Horus Metrics and Traces</figcaption>
+          <figcaption>Interacting with the Horus metrics and traces</figcaption>
         </figure>
         <br>
         <p>
@@ -427,7 +428,7 @@
         </p>
         <figure>
           <img src="assets/images/case-study/gif-of-UI-2.gif" class="case-study-image" />
-          <figcaption>Interacting with the Horus Traces and Single Trace</figcaption>
+          <figcaption>Interacting with the Horus traces and a single trace</figcaption>
         </figure>
         <br>
         <p>
@@ -439,7 +440,7 @@
           Horus is the perfect solution for Oliver. He’s able to get both metric and tracing coverage without needing to learn any other technologies. Horus is well-documented and designed to be set up in just minutes, so there’s no time wasted. Oliver also gets to maintain control over the data without needing to export it to a third party. Best of all, Horus is free from the outset. There are no time or storage limitations, so Evo T-shirts can invest the time and capital back into the business. 
         </p>
         <figure>
-          <img src="assets/images/case-study/evo-with-horus.gif" class="case-study-image" />
+          <img src="assets/images/case-study/evo-with-horus.gif" class="case-study-image medium" />
           <figcaption>Evo T-Shirts with Horus instrumentation</figcaption>
         </figure>
         <br>
@@ -447,7 +448,7 @@
         <!-- Section 5 -->
         <h2 class="h2">5. Horus Architecture</h2>
         <p>
-          Horus has four distinct but interrelated components: the horus agent, connector, database, and UI. We wanted to develop an end-to-end observability tool, which means all the way from generating metrics and traces to a UI where the user can visualize them.  
+          Horus has four distinct but interrelated components: the <code>horus-agent</code>, connector, database, and UI. We wanted to develop an end-to-end observability tool, which means all the way from generating metrics and traces to a UI where the user can visualize them.  
         </p>
         <figure>
           <img src="assets/images/case-study/generic-full-horus.png" class="case-study-image" />
@@ -456,11 +457,11 @@
         <br>
         <h4>5.1 Horus Agent</h4>
         <p>
-          The horus agent embodies the first stage of a telemetry architecture: the emitting stage. Once installed in the application, it generates metrics and traces, collects them, and sends them to the connector. It consists of an npm package that the user installs and configures slightly. Currently, Horus is for Node applications, and part of the future work is to develop instrumentation — the horus agent — for additional languages.
+          The <code>horus-agent</code> embodies the first stage of a telemetry architecture: the emitting stage. Once installed in the application, it generates metrics and traces, collects them, and sends them to the connector. It consists of an npm package that the user installs and configures slightly. Currently, Horus is for Node applications, and part of the future work is to develop instrumentation — the <code>horus-agent</code> — for additional languages.
         </p>
         <figure>
-          <img src="assets/images/case-study/evo-with-horus.gif" class="case-study-image" />
-          <figcaption>Evo T-Shirts with horus agent installed</figcaption>
+          <img src="assets/images/case-study/evo-with-horus.gif" class="case-study-image medium" />
+          <figcaption>Evo T-Shirts with <code>horus-agent</code> installed</figcaption>
         </figure>
         <br>
         <p>
@@ -488,7 +489,7 @@
           The auto instrumentation calls a single function which automatically detects and generates telemetry data. It then sends this data to the chosen endpoint (where the connector is located, described below), avoiding the need to add extra lines of code to the application.
         </p>
         <figure>
-          <img src="assets/images/case-study/opentelemetry.svg" class="case-study-imagen case-study-image-smaller" />
+          <img src="assets/images/case-study/opentelemetry.svg" class="case-study-imagen small" />
         </figure>
         <br>
         <p>
@@ -505,11 +506,10 @@
         <br>
         <h4>5.2 Connector</h4>
         <p>
-          The horus agent sends all the data it generates to the connector. The connector then parses and transforms the data for easy storing and querying. It inserts both the metrics and traces into tables in the Timescale database for future use.
+          The <code>horus-agent</code> sends all the data it generates to the connector. The connector then parses and transforms the data for easy storing and querying. It inserts both the metrics and traces into tables in the Timescale database for future use.
         </p>
         <figure>
           <img src="assets/images/case-study/connector.png" class="case-study-image" />
-          <figcaption>Horus connector</figcaption>
         </figure>
         <br>
         <p>
@@ -526,7 +526,6 @@
         </p>
         <figure>
           <img src="assets/images/case-study/database.png" class="case-study-image" />
-          <figcaption>Horus Database — replace with newer image (sans relational)</figcaption>
         </figure>
         <br>
         <p>
@@ -547,7 +546,6 @@
         </p>
         <figure>
           <img src="assets/images/case-study/UI.png" class="case-study-image" />
-          <figcaption>Horus UI</figcaption>
         </figure>
         <br>
         <p>
@@ -601,8 +599,8 @@
           What happens, though, if a metric is related to multiple traces, or if a trace is related to multiple metrics? For example, a trace that contains an error span is easily included in all three of the RED metrics: it’s included in the amount of requests, the amount of errors, and the average wait time for a response. Does that trace get an array of metric IDs to choose from? Similarly, a metric data point generally covers an interval of time and does not have a one-to-one relationship with a trace. Should the metric point contain an array of all trace IDs that it covers?
         </p>
         <figure>
-          <img src="assets/images/case-study/many-traces-schema.png" class="case-study-image" />
-          <figcaption>A potential traces array stored across all three metric datapoints</figcaption>
+          <img src="assets/images/case-study/many-traces-schema.png" class="case-study-image medium" />
+          <figcaption>A potential traces array stored across all three metric datapoints in a database</figcaption>
         </figure>
         <br>
         <p>
@@ -610,7 +608,7 @@
         </p>
         <figure>
           <img src="assets/images/case-study/chronosphere-architecture.png" class="case-study-image" />
-          <figcaption>Chronosphere Architecture</figcaption>
+          <figcaption>Chronosphere architecture that caches all traces but only stores one trace</figcaption>
         </figure>
         <br>
         <p>
@@ -636,7 +634,7 @@
         <br>
         <h5>Database Storage</h5>
         <p>
-          The metrics data points we generated with OpenTelemetry did not contain a timestamp for their creation. Because we needed to connect them to traces through a timeframe, we needed to give them one. Within the connector, we added a simple JavaScript <code>Date.now()</code> and converted it to a PostgreSQL timestamp upon insertion. 
+          The metrics data points we generated with OpenTelemetry did not contain a timestamp for their creation. Because we needed to connect them to traces through a timeframe, we needed to give them one. Within the connector, we added a simple JavaScript <code>Date()</code> and converted it to a PostgreSQL timestamp upon insertion. 
         </p>
         <br>
         <p>
@@ -665,7 +663,7 @@
         </p>
         <figure>
           <img src="assets/images/case-study/missing-traces.gif" class="case-study-image" />
-          <figcaption>Traces seem to be "missing" when there are metrics due to a timezone discrepancy</figcaption>
+          <figcaption>Traces seem to be "missing" due to a timezone discrepancy</figcaption>
         </figure>
         <br>
         <p>
