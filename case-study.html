@@ -70,7 +70,7 @@
         <br />
 
         <!-- Section 1 -->
-        <h2 class="h2">1 Introduction</h2>
+        <h2 class="h2">1. Introduction</h2>
         <br>
         <p>
           Transitioning to a microservice architecture brings many benefits to a growing application. The scalability by component, separation of concerns, and flexibility of technology used are just some of the ways it provides immediate benefits. The main drawback of a microservice architecture is it exponentially increases the age-old problem of any technology: what if something stops working?
@@ -229,7 +229,7 @@
         </p>
         <figure>
           <img src="assets/images/case-study/evo-with-horus.gif" class="case-study-image" />
-          <figcaption>Evo T-Shirts with Horus instruementation via horus agent</figcaption>
+          <figcaption>Evo T-Shirts with Horus instrumentation via horus agent</figcaption>
         </figure>
         <br>
         <p>
@@ -294,7 +294,8 @@
         </p>
 
         <!-- Section 3 -->
-        <h2 class="h2">3 Existing Solutions</h2> 
+        <h2 class="h2">3. Existing Solutions</h2> 
+        <h3>3.1 SaaS</h3>
         <p>
           Oliver has several options to explore for a full application performance management tool. His need for a simple setup steers him to look at all-in-one options first. Third-party services like NewRelic and DataDog are a good place to start, as they provide out-of-the-box full observability platforms. Aside from the user copying and pasting some provided code into their application (the “emitting” or instrumentation phase), it’s all connected, set up, and ready to go. 
         </p>
@@ -322,6 +323,7 @@
           <img src="assets/images/case-study/overwhelming-uis.png" class="case-study-image" />
         </figure>
         <br />
+        <h3>3.2 DIY</h3>
         <p>
           Because Oliver wants something simpler and custom to their needs, he’s left with a DIY via Open Source approach. He has a plethora of options for how to stitch it all together: OpenTelemetry, Jaeger, Zipkin, Prometheus, Grafana, etc. Then he has a long list of questions to research:
         </p>
@@ -358,7 +360,7 @@
         <br />
 
         <!-- Section 4 -->
-        <h2 class="h2">4 Introducing Horus</h2>
+        <h2 class="h2">4. Introducing Horus</h2>
 
         <p>
           Horus is an open-source observability solution for microservices. Users can generate, store, and visualize correlated telemetry data, allowing them to see the real-time health of their application. 
@@ -432,7 +434,7 @@
           Horus provides a simple, elegant, and intuitive experience to navigate data while keeping the time cost to set up at an absolute minimum. Horus also comes with a rich set of detailed instructions and documentation to get you up and running.  
         </p>
         <br>
-        <h3>Horus and Evo T-Shirts</h3>
+        <h3>4.2 Horus and Evo T-Shirts</h3>
         <p>
           Horus is the perfect solution for Oliver. He’s able to get both metric and tracing coverage without needing to learn any other technologies. Horus is well-documented and designed to be set up in just minutes, so there’s no time wasted. Oliver also gets to maintain control over the data without needing to export it to a third party. Best of all, Horus is free from the outset. There are no time or storage limitations, so Evo T-shirts can invest the time and capital back into the business. 
         </p>
@@ -443,7 +445,7 @@
         <br>
 
         <!-- Section 5 -->
-        <h2 class="h2">5 Horus Architecture</h2>
+        <h2 class="h2">5. Horus Architecture</h2>
         <p>
           Horus has four distinct but interrelated components: the horus agent, connector, database, and UI. We wanted to develop an end-to-end observability tool, which means all the way from generating metrics and traces to a UI where the user can visualize them.  
         </p>
@@ -452,7 +454,7 @@
           <figcaption>The full Horus infrastrcture + Horus instrumented in a microservice application</figcaption>
         </figure>
         <br>
-        <h4>Horus Agent</h4>
+        <h4>5.1 Horus Agent</h4>
         <p>
           The horus agent embodies the first stage of a telemetry architecture: the emitting stage. Once installed in the application, it generates metrics and traces, collects them, and sends them to the connector. It consists of an npm package that the user installs and configures slightly. Currently, Horus is for Node applications, and part of the future work is to develop instrumentation — the horus agent — for additional languages.
         </p>
@@ -501,7 +503,7 @@
           The main disadvantage of OpenTelemetry is its novelty. Because it is a project rapidly growing and expanding, the documentation can sometimes be confusing or downright nonexistent. However, as mentioned before, this problem is solved from the user’s perspective thanks to the development of the npm package <code>horus-agent</code>, which extracts away the complexity.
         </p>
         <br>
-        <h4>Connector</h4>
+        <h4>5.2 Connector</h4>
         <p>
           The horus agent sends all the data it generates to the connector. The connector then parses and transforms the data for easy storing and querying. It inserts both the metrics and traces into tables in the Timescale database for future use.
         </p>
@@ -514,7 +516,7 @@
           When using OpenTelemetry, it’s common to have an OpenTelemetry Collector. However, we decided to forego it completely. One of its main purposes is to ingest telemetry data from different sources (such as Prometheus and Jaeger) and then transform it into a common format. Since we used OpenTelemetry exclusively, this was unnecessary.
         </p>
         <br>
-        <h4>Database</h4>
+        <h4>5.3 Database</h4>
         <p>
           For a database, we chose a time-series database because it’s optimized for time-stamped data. Because time is a central part of our schema (how we chose to connect traces and metrics), having a time-focused schema and database is key. 
         </p>
@@ -531,7 +533,7 @@
           We chose to use Timescale specifically, which is based on PostgreSQL, and is also one of the most popular open-source object-relational database systems. The proven maturity and high performance of Timescale and PostgreSQL made it a natural choice.
         </p>
         <br>
-        <h4>UI</h4>
+        <h4>5.4 UI</h4>
         <p>
           The last part of the architecture, and arguably the most important to the user, is the UI. This is the primary component that the user interacts with and is the source of all data visualization for Horus.
         </p>
@@ -581,12 +583,12 @@
         </p>
         <br>
         <!-- Section 6 -->
-        <h2 class="h2">6 Challenges & Trade-offs</h2>
+        <h2 class="h2">6. Challenges & Trade-offs</h2>
         <p>
           We encountered several engineering challenges and forks in the road while creating Horus. What follows are a few of the most central to Horus’s design and infrastructure.
         </p>
         <br>
-        <h4>Connecting Metrics and Traces</h4>
+        <h4>6.1 Connecting Metrics and Traces</h4>
         <p>
           A key feature of Horus is the clear link between metrics and traces. However, generating related metrics and traces is only the beginning — you have to store and query them while maintaining their relationship. How do you show the “right” traces? 
         </p>
@@ -627,7 +629,7 @@
           And it would have been... were it not for timezones.
         </p>
         <br>
-        <h4>Timezones</h4>
+        <h4>6.2 Timezones</h4>
         <p>
           Timezones brought two specific challenges: database storage and UI querying.
         </p>
@@ -670,7 +672,7 @@
           We ultimately decided to allow the Nivo graph to display metrics in the timezone of the host machine, but then corrected it for trace queries. For simplicity’s sake, we chose to limit the user to only relative timeframes (e.g. the last 15 minutes, the last 24 hours, etc.). Said another way, we fixed it behind the scenes and hid the complexity from the user. We have a newfound respect for all who intimately work with timezone adaptability.
         </p>
         <br>
-        <h4>Visualization Trade-offs</h4>
+        <h4>6.3 Visualization Trade-offs</h4>
         <p>
           Our initial prototype used a visualization layer provided by Grafana, which is an open-source dashboard monitoring solution. 
         </p>
@@ -744,7 +746,7 @@
         </figure>
         <br>
         <!-- Section 6 -->
-        <h2 class="h2">6 Horus Installation & Set Up</h2>
+        <h2 class="h2">7. Horus Installation & Set Up</h2>
         <p>
           There are two steps to setting up Horus:
         </p>
@@ -753,7 +755,7 @@
           <li>Deploy the Horus infrastructure via Docker</li>
         </ul>
         <br>
-        <h4>Setting Up Instrumentation</h4>
+        <h4>7.1 Setting Up Instrumentation</h4>
         <p>
           First, install the <code>horus-agent</code> with <code>npm</code>. This should be installed in the backend/server-side of the root service as well as each dependent service.
         </p>
@@ -776,7 +778,7 @@
           <img src="assets/images/case-study/my-domain-name.gif" class="case-study-image" />
         </figure>
         <br>
-        <h4>Deploying with Docker</h4>
+        <h4>7.2 Deploying with Docker</h4>
         <p>
           Download Docker and/or Docker Compose if not already on the machine. Clone the <a href="github.com/try-horus/horus-compose">horus-compose</a> repo. In the terminal and in the same folder as the <code>docker-compose.yaml</code> file, run <code>docker-compose up</code>. 
         </p>
@@ -792,7 +794,7 @@
         </p>
         <br>
         <!-- Section 7 -->
-        <h2 class="h2">7 Future Work</h2>
+        <h2 class="h2">8. Future Work</h2>
         <p>
           And that’s Horus! Although it fulfills all of Oliver’s needs, an open-source project is never fully finished. These are some of the features that we would like to pursue in future iterations:
         </p>
@@ -804,7 +806,7 @@
       
         
         <!-- Section 8 -->
-        <h2>8 Team</h2>
+        <h2>9. Team</h2>
         <br>
         <br>
         <div class="section team-section">
