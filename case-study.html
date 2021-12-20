@@ -449,8 +449,8 @@
           Horus is the perfect solution for Oliver. He’s able to get both metric and tracing coverage without needing to learn any other technologies. Horus is well-documented and designed to be set up in just minutes, so there’s no time wasted. Oliver also gets to maintain control over the data without needing to export it to a third party. Best of all, Horus is free from the outset. There are no time or storage limitations, so Evo T-shirts can invest the time and capital back into the business. 
         </p>
         <figure>
-          <img src="assets/images/case-study/stand-in.jpeg" class="case-study-image" />
-          <figcaption>Fig. #: Filler to where an image should go</figcaption>
+          <img src="assets/images/case-study/evo-with-horus.gif" class="case-study-image" />
+          <figcaption>Fig. #: Evo T-Shirts with Horus instrumentation</figcaption>
         </figure>
         <br>
 
@@ -460,8 +460,8 @@
           Horus has four distinct but interrelated components: the horus agent, connector, database, and UI. We wanted to develop an end-to-end observability tool, which means all the way from generating metrics and traces to a UI where the user can visualize them.  
         </p>
         <figure>
-          <img src="assets/images/case-study/stand-in.jpeg" class="case-study-image" />
-          <figcaption>Fig. #: Filler to where an image should go</figcaption>
+          <img src="assets/images/case-study/generic-full-horus.png" class="case-study-image" />
+          <figcaption>Fig. #: The full Horus infrastrcture + Horus instrumented in a microservice application</figcaption>
         </figure>
         <br>
         <h4>Horus Agent</h4>
@@ -469,8 +469,8 @@
           The horus agent embodies the first stage of a telemetry architecture: the emitting stage. Once installed in the application, it generates metrics and traces, collects them, and sends them to the connector. It consists of an npm package that the user installs and configures slightly. Currently, Horus is for Node applications, and part of the future work is to develop instrumentation — the horus agent — for additional languages.
         </p>
         <figure>
-          <img src="assets/images/case-study/stand-in.jpeg" class="case-study-image" />
-          <figcaption>Fig. #: Filler to where an image should go</figcaption>
+          <img src="assets/images/case-study/evo-with-horus.gif" class="case-study-image" />
+          <figcaption>Fig. #: Evo T-Shirts with horus agent installed</figcaption>
         </figure>
         <br>
         <p>
@@ -498,8 +498,8 @@
           The auto instrumentation calls a single function which automatically detects and generates telemetry data. It then sends this data to the chosen endpoint (where the connector is located, described below), avoiding the need to add extra lines of code to the application.
         </p>
         <figure>
-          <img src="assets/images/case-study/stand-in.jpeg" class="case-study-image" />
-          <figcaption>Fig. #: Filler to where an image should go</figcaption>
+          <img src="assets/images/case-study/opentelemetry.svg" class="case-study-imagen case-study-image-smaller" />
+          <figcaption>Fig. #: OpenTelemetry</figcaption>
         </figure>
         <br>
         <p>
@@ -519,8 +519,8 @@
           The horus agent sends all the data it generates to the connector. The connector then parses and transforms the data for easy storing and querying. It inserts both the metrics and traces into tables in the Timescale database for future use.
         </p>
         <figure>
-          <img src="assets/images/case-study/stand-in.jpeg" class="case-study-image" />
-          <figcaption>Fig. #: Filler to where an image should go</figcaption>
+          <img src="assets/images/case-study/connector.png" class="case-study-image" />
+          <figcaption>Fig. #: Horus connector</figcaption>
         </figure>
         <br>
         <p>
@@ -536,8 +536,8 @@
           Time-series databases are also ideal when appending frequent and large amounts of data, but not modifying/deleting it. This is exactly what our use case is since when a metric or trace is created, there is no need to ever modify it.
         </p>
         <figure>
-          <img src="assets/images/case-study/stand-in.jpeg" class="case-study-image" />
-          <figcaption>Fig. #: Filler to where an image should go</figcaption>
+          <img src="assets/images/case-study/database.png" class="case-study-image" />
+          <figcaption>Fig. #: Horus Database — replace with newer image (sans relational)</figcaption>
         </figure>
         <br>
         <p>
@@ -557,8 +557,8 @@
           The UI is composed of two parts: the client and the server.
         </p>
         <figure>
-          <img src="assets/images/case-study/stand-in.jpeg" class="case-study-image" />
-          <figcaption>Fig. #: Filler to where an image should go</figcaption>
+          <img src="assets/images/case-study/UI.png" class="case-study-image" />
+          <figcaption>Fig. #: Horus UI</figcaption>
         </figure>
         <br>
         <p>
@@ -573,8 +573,8 @@
           The UI has three pages: the metrics page, the traces page, and the spans page.
         </p>
         <figure>
-          <img src="assets/images/case-study/stand-in.jpeg" class="case-study-image" />
-          <figcaption>Fig. #: Filler to where an image should go</figcaption>
+          <img src="assets/images/case-study/ui-overview.gif" class="case-study-image" />
+          <figcaption>Fig. #: Overview of Horus UI</figcaption>
         </figure>
         <br>
         <p>
@@ -620,8 +620,8 @@
           Chronosphere, an observability platform, solves this issue by only storing one “important” trace per metric data point. If the trace passes some checks (e.g. it has a status code of 500), it is chosen as the most important trace and stored. All other traces that the metric data point referenced are discarded. 
         </p>
         <figure>
-          <img src="assets/images/case-study/stand-in.jpeg" class="case-study-image" />
-          <figcaption>Fig. #: Filler to where an image should go</figcaption>
+          <img src="assets/images/case-study/chronosphere-architecture.png" class="case-study-image" />
+          <figcaption>Fig. #: Chronosphere Architecture</figcaption>
         </figure>
         <br>
         <p>
