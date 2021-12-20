@@ -118,7 +118,6 @@
         </p>
         <figure>
           <img src="assets/images/case-study/endless-logs.png" class="case-study-image" />
-          <figcaption>Fig. 2: Endless logs to wade through</figcaption>
         </figure>
         <br />
         <p>
@@ -172,16 +171,15 @@
           Why the application is performing this way may still be unclear, but the metric brings clarity to the broader picture of the application's overall state and performance. For example, when monitoring the app’s network, there could be a sharp uptick in requests per second. This could indicate good business — or a DDoS attack. Either way, the information encourages the developer to pay attention and learn more.
         </p>
         <figure>
-          <img src="assets/images/case-study/stand-in.jpeg" class="case-study-image" />
-          <figcaption>Fig. #: Filler to where an image should go</figcaption>
+          <img src="assets/images/case-study/metric-example.png" class="case-study-image" />
+          <figcaption>Fig. #: A metric graph from DataDog</figcaption>
         </figure>
         <br />
         <p>
           <span class="bold">Logs</span> are the most detailed data type, so it’s easy to assume they’re immediately helpful. They can be, but all of the details can make them hard to parse and understand. Logs are often unstructured, sporadic lines of text that the system creates as it does various tasks. Logs are great when diving into the details and seeing the step-by-step explanation of what a system did, or attempted to do.
         </p>
         <figure>
-          <img src="assets/images/case-study/stand-in.jpeg" class="case-study-image" />
-          <figcaption>Fig. #: Filler to where an image should go</figcaption>
+          <img src="assets/images/case-study/log-example.png" class="case-study-image" />
         </figure>
         <br />
         <p>
@@ -196,8 +194,8 @@
           Traces capture not only the whole journey of request, but each step of the way, and how long each step took. Each step is commonly referred to as a span (short for a span of time).
         </p>
         <figure>
-          <img src="assets/images/case-study/stand-in.jpeg" class="case-study-image" />
-          <figcaption>Fig. #: Filler to where an image should go</figcaption>
+          <img src="assets/images/case-study/trace-example.png" class="case-study-image" />
+          <figcaption>Fig. #: A distributed trace from DataDog</figcaption>
         </figure>
         <br />
 
@@ -260,8 +258,7 @@
           For Oliver, it's important that his own application is decoupled from the telemetry system so that both components are able to operate independently of one another. It's common practice today to implement a telemetry generating emitter through the form of an SDK. OpenTelemetry is an example of a leading developer tool kit that could be implemented to generate and emit telemetry data. We'll discuss OpenTelemetry in greater depth later on.
         </p>
         <figure>
-          <img src="assets/images/case-study/stand-in.jpeg" class="case-study-image" />
-          <figcaption>Fig. #: Animation of emitting stage</figcaption>
+          <img src="assets/images/case-study/emitting.png" class="case-study-image case-study-image-smaller" />
         </figure>
         <br>
         <h4>The Shipping Stage</h4>
@@ -282,17 +279,12 @@
           The presentation stage is the last phase of the telemetry pipeline and is, crucially, the only one where most people will interact to make important design and business decisions. This stage's purpose is to transform telemetry data into useful, measurable, and human-friendly insights regarding how an application is performing. The presentation stage is often a separate architectural component to the emission and shipping stages and is regarded as the user interface of telemetry architecture. The presentation component will pull from a given data source, format the data to be interpreted by the UI, and visualize the data in a human-friendly way.
         </p>
         <figure>
-          <img src="assets/images/case-study/stand-in.jpeg" class="case-study-image" />
-          <figcaption>Fig. #: static or animated examples of metric graphs and waterfall charts in action</figcaption>
+          <img src="assets/images/case-study/presentation.png" class="case-study-image case-study-image-smaller" />
         </figure>
         <br>
         <p>
           The presentation stage is often what large SaaS monitoring solutions use as their primary selling point. If the telemetry architecture doesn't implement this stage itself, the user will just do it themselves either by creating their own graphs or outsourcing to a separate UI component. Therefore, telemetry presentation is always a key component of telemetry architecture even though it does not directly impact the generation or production of telemetry data.
         </p>
-        <figure>
-          <img src="assets/images/case-study/stand-in.jpeg" class="case-study-image" />
-          <figcaption>Fig. #: gif of user interacting with the interface</figcaption>
-        </figure>
         <br>
         <p>
           That’s a lot to digest! And in a way, that’s an important point for Oliver. Although he finds this interesting, he’s more interested in getting his application performance management (APM) tool up and running than understanding it deeply. How can he go about monitoring Evo T-shirts?
@@ -347,8 +339,7 @@
           <li>And on and on...</li>
         </ul>
         <figure>
-          <img src="assets/images/case-study/stand-in.jpeg" class="case-study-image" />
-          <figcaption>Fig. #: Filler to where an image should go</figcaption>
+          <img src="assets/images/case-study/diy-approach.jpg" class="case-study-image" />
         </figure>
         <br />
         <p>
@@ -607,14 +598,14 @@
         <p>
           Several observability tools rely on an assigned ID to maintain this connection. When the metrics and traces are being generated, before they’re stored in the database, the trace is given a metric ID and the metric is given a trace ID. 
         </p>
-        <figure>
-          <img src="assets/images/case-study/stand-in.jpeg" class="case-study-image" />
-          <figcaption>Fig. #: Filler to where an image should go</figcaption>
-        </figure>
         <br>
         <p>
           What happens, though, if a metric is related to multiple traces, or if a trace is related to multiple metrics? For example, a trace that contains an error span is easily included in all three of the RED metrics: it’s included in the amount of requests, the amount of errors, and the average wait time for a response. Does that trace get an array of metric IDs to choose from? Similarly, a metric data point generally covers an interval of time and does not have a one-to-one relationship with a trace. Should the metric point contain an array of all trace IDs that it covers?
         </p>
+        <figure>
+          <img src="assets/images/case-study/many-traces-schema.png" class="case-study-image" />
+          <figcaption>Fig. #: A potential traces array stored across all three metric datapoints</figcaption>
+        </figure>
         <br>
         <p>
           Chronosphere, an observability platform, solves this issue by only storing one “important” trace per metric data point. If the trace passes some checks (e.g. it has a status code of 500), it is chosen as the most important trace and stored. All other traces that the metric data point referenced are discarded. 
@@ -654,8 +645,8 @@
           However, this Date object is subject to the time zone it detects. If the connector was being hosted on a machine with EST, all of the metrics data points had timestamps according to EST. If the connector was on a GMT machine, the timestamps all reflected GMT. This proved to be problematic because then the timezone is completely subjective — how can the UI server know what time frame to query for? Did the traces occur at 12:17 (EST) or 17:17 (GMT)?
         </p>
         <figure>
-          <img src="assets/images/case-study/stand-in.jpeg" class="case-study-image" />
-          <figcaption>Fig. #: Filler to where an image should go</figcaption>
+          <img src="assets/images/case-study/different-timezones.png" class="case-study-image" />
+          <figcaption>Fig. #: At the same moment, two different times can be produced with <code>Date()</code></figcaption>
         </figure>
         <br>
         <p>
@@ -699,14 +690,14 @@
         <p>
           Unfortunately, as we integrated Grafana into our own application infrastructure, it became apparent that there were limitations. While Grafana does offer a range of storage solutions, only some types of telemetry data can be queried from each database. In our case, we were able to query TimescaleDB for metrics, but we were unable to retrieve trace data that could be interpreted by Grafana. Grafana could only visualize trace data received from proprietary tracing solutions like Jaeger, Zipkin, X-Ray, or Tempo. 
         </p>
-        <figure>
-          <img src="assets/images/case-study/stand-in.jpeg" class="case-study-image" />
-          <figcaption>Fig. #: Filler to where an image should go</figcaption>
-        </figure>
         <br>
         <p>
           This left us with two potential options to explore. 
         </p>
+        <figure>
+          <img src="assets/images/case-study/alternate-full.png" class="case-study-image" />
+          <figcaption>Fig. #: Two options of architecture: with Grafana or with a custom UI</figcaption>
+        </figure>
         <br>
         <p>
           First, we could commit to using Grafana as our visualization layer and generate traces using a pre-existing service like Jaeger or Zipkin. This was already an unattractive option because we wanted to use OpenTelemetry as our only mechanism for emitting telemetry data. Introducing more technologies meant introducing more dependencies and thereby adding greater complexity to our system. 
@@ -715,6 +706,10 @@
         <p>
           Moreover, we only wanted a single database to store both traces and metrics to keep our data tightly coupled together. Including Jaeger or Zipkin would mean that we would need another database (both of these technologies were only compatible with Cassandra and Elasticsearch databases). We knew that by adding another database, the complexity to our system architecture would increase. Furthermore, it would open us up to more points of failure and potentially create time synchronicity issues. 
         </p>
+        <figure>
+          <img src="assets/images/case-study/alternate-grafana.png" class="case-study-image" />
+          <figcaption>Fig. #: Alternative architecture that includes Grafana</figcaption>
+        </figure>
         <br>
         <p>
           Although this route clearly held difficulties along the way, we knew that the technologies were compatible, and that gave us confidence. It would just be a matter of configuring them to operate with one another. However, this would come at a cost. We would lose the simplicity and elegance of our initial architecture. 
@@ -724,8 +719,8 @@
           Our second option was more radical: we could build our own user interface. 
         </p>
         <figure>
-          <img src="assets/images/case-study/stand-in.jpeg" class="case-study-image" />
-          <figcaption>Fig. #: Filler to where an image should go</figcaption>
+          <img src="assets/images/case-study/alternate-horus.png" class="case-study-image" />
+          <figcaption>Fig. #: The architecture we chose that includes a custom UI</figcaption>
         </figure>
         <br>
         <p>
@@ -748,8 +743,8 @@
           After discussing and evaluating our options, we came to the conclusion that keeping the architecture as straightforward and lightweight as possible was essential to meeting our use case. Moreover, the autonomy and control gained by producing our own user interface was in itself worth the engineering effort and energy. We would have greater say in how our user would interact with our application and again further fulfill the requirements of the user in our use case. In hindsight, we are grateful for that decision and it was worth it.
         </p>
         <figure>
-          <img src="assets/images/case-study/stand-in.jpeg" class="case-study-image" />
-          <figcaption>Fig. #: Filler to where an image should go</figcaption>
+          <img src="assets/images/case-study/ui-overview.gif" class="case-study-image" />
+          <figcaption>Fig. #: Overview of Horus UI</figcaption>
         </figure>
         <br>
         <!-- Section 6 -->
@@ -767,8 +762,7 @@
           First, install the <code>horus-agent</code> with <code>npm</code>. This should be installed in the backend/server-side of the root service as well as each dependent service.
         </p>
         <figure>
-          <img src="assets/images/case-study/stand-in.jpeg" class="case-study-image" />
-          <figcaption>Fig. #: Filler to where an image should go</figcaption>
+          <img src="assets/images/case-study/npm-install-horus-agent.gif" class="case-study-image" />
         </figure>
         <br>
         <p>
@@ -783,8 +777,7 @@
           The <code>config.json</code> file can be found within <code>node_modules/horus-agent</code>.
         </p>
         <figure>
-          <img src="assets/images/case-study/stand-in.jpeg" class="case-study-image" />
-          <figcaption>Fig. #: Filler to where an image should go</figcaption>
+          <img src="assets/images/case-study/my-domain-name.gif" class="case-study-image" />
         </figure>
         <br>
         <h4>Deploying with Docker</h4>
@@ -792,8 +785,7 @@
           Download Docker and/or Docker Compose if not already on the machine. Clone the <a href="github.com/try-horus/horus-compose">horus-compose</a> repo. In the terminal and in the same folder as the <code>docker-compose.yaml</code> file, run <code>docker-compose up</code>. 
         </p>
         <figure>
-          <img src="assets/images/case-study/stand-in.jpeg" class="case-study-image" />
-          <figcaption>Fig. #: Filler to where an image should go</figcaption>
+          <img src="assets/images/case-study/docker-compose-simple.gif" class="case-study-image" />
         </figure>
         <br>
         <p>
