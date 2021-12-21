@@ -259,7 +259,7 @@
           For Oliver, it's important that his own application is decoupled from the telemetry system so that both components are able to operate independently of one another. It's common practice today to implement a telemetry generating emitter through the form of an SDK. OpenTelemetry is an example of a leading developer tool kit that could be implemented to generate and emit telemetry data. We'll discuss OpenTelemetry in greater depth later on.
         </p>
         <figure>
-          <img src="assets/images/case-study/emitting.png" class="case-study-image small" />
+          <img src="assets/images/case-study/emitting.png" class="case-study-image x-small" />
         </figure>
         <br>
         <h4>The Shipping Stage</h4>
@@ -271,7 +271,7 @@
           Telemetry data is generated continuously and at a high frequency. Therefore, the database needs to be able to handle this high write intensity while also being able to query data when required. Should the frequency of the incoming data surpass the processing capability of the database, it may be wise to consider the implementation of either a queue or event bus to manage the data influx. Both these options also provide the benefit of reducing the possibility of data being dropped if there is a database backlog or being lost if the database goes down.
         </p>
         <figure>
-          <img src="assets/images/case-study/shipping.png" class="case-study-image medium" />
+          <img src="assets/images/case-study/shipping.png" class="case-study-image x-small" />
         </figure>
         <br>
         <h4>The Presentation Stage</h4>
@@ -279,7 +279,7 @@
           The presentation stage is the last phase of the telemetry pipeline and is, crucially, the only one where most people will interact to make important design and business decisions. This stage's purpose is to transform telemetry data into useful, measurable, and human-friendly insights regarding how an application is performing. The presentation stage is often a separate architectural component to the emission and shipping stages and is regarded as the user interface of telemetry architecture. The presentation component will pull from a given data source, format the data to be interpreted by the UI, and visualize the data in a human-friendly way.
         </p>
         <figure>
-          <img src="assets/images/case-study/presentation.png" class="case-study-image small" />
+          <img src="assets/images/case-study/presentation.png" class="case-study-image x-small" />
         </figure>
         <br>
         <p>
@@ -970,7 +970,8 @@
         'container': 'article', //element to find all selectors in
         'smoothScrolling': true, //enable or disable smooth scrolling on click
         'prefix': 'toc', //prefix for anchor tags and class names
-        'highlightOnScroll': true, //add class to heading that is currently in focus
+        'highlightOnScroll': true,
+        'highlightOnSelect': true, //add class to heading that is currently in focus
         'highlightOffset': 100, //offset to trigger the next headline
       });
     </script>
