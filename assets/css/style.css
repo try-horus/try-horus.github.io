@@ -1981,6 +1981,10 @@ a:hover {
   height: 100%;
 }
 
+code {
+  color: #b983ff;
+}
+
 /* .toc-active {
   font-weight: bold;
 } */
