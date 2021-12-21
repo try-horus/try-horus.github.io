@@ -1988,3 +1988,13 @@ code {
 .is-active-li {
   font-weight: bold;
 }
+
+.reference {
+  color: #b5bbbf;
+  font-style: italic;
+  padding-top: 30px;
+}
+
+sup {
+  color: #b983ff;
+}
