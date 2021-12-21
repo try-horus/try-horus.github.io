@@ -1985,6 +1985,6 @@ code {
   color: #b983ff;
 }
 
-/* .toc-active {
+.is-active-li {
   font-weight: bold;
-} */
+}
