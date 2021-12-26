@@ -85,11 +85,7 @@
         </p>
         <br>
         <p>
-          Knowing and understanding the source of the problem is crucial. This is where telemetry data, specifically metrics and tracing, come in. With metrics, the user can see the number of requests and errors hitting their application for a given interval. With distributed tracing, the user can track how a request travels through their microservice architecture, from the moment a user clicks a button until a response is sent back to them. 
-        </p>
-        <br>
-        <p>
-          Metrics are incredibly useful to alert that there’s a problem (e.g. errors go up in metrics), and traces provide that next step to find where it took place (e.g. there was a 500 error when the user submitted their email address). The correlation between the metrics and traces makes the debugging process a lot easier, especially with multiple services working together.
+          This is where telemetry data, specifically metrics and tracing, come in. With metrics, the user can see the number of requests and errors hitting their application for a given interval. With distributed tracing, the user can track how a request travels through their microservice architecture, from the moment a user clicks a button until a response is sent back to them. 
         </p>
         <br>
         <p>
@@ -98,7 +94,7 @@
 
         <h3>1.1 Evo T-Shirts</h3>
         <p>
-          Evo T-shirts, an e-commerce site, has recently skyrocketed in popularity. What started as one person’s side-hustle has now outgrown a monolithic architecture. The powers that be have decided to move to a microservice architecture for better organization. Oliver has led the team of engineers who built Evo T-shirts for years, and he continues to oversee each sub-team in their now assigned microservice. 
+          Evo T-shirts, an e-commerce site, has recently skyrocketed in popularity. What started as one person’s side-hustle has now outgrown a monolithic architecture. The powers that be have decided to move to a microservice architecture for better organization. Oliver has led the team of engineers who built Evo T-shirts for years, and he continues to oversee each sub-team in their now assigned service. 
         </p>
         <figure>
           <img src="assets/images/case-study/no-errors.gif" class="case-study-image medium" />
@@ -110,11 +106,11 @@
         </p>
         <br />
         <p>
-          Oliver quickly jumps on the site and buys some t-shirts, trying to recreate the errors that customers are experiencing. Unfortunately, he doesn't get any errors, his cart is accurate, and he is able to complete his purchase without incident. He checks the status of each microservice, but they’re all running just fine. What is going on?
+          Oliver quickly jumps on the site and buys some t-shirts, trying to recreate the errors that customers are experiencing. Unfortunately, he doesn't get any errors, his cart is accurate, and he is able to complete his purchase without incident. He checks the status of each service, but they’re all running just fine. What is going on?
         </p>
         <br />
         <p>
-          Several engineers on his team try recreating the problem, too. Some of them receive the same errors customers were complaining about, while others do not. They’re not sure why it’s happening for some and not others. Oliver’s last resort is to look at the logs of each microservice, hoping they’ll contain information about the alleged errors. 
+          Several engineers on his team try recreating the problem, too. Some of them receive the same errors customers were complaining about, while others do not. They’re not sure why it’s happening for some and not others. Oliver’s last resort is to look at the logs of each service, hoping they’ll contain information about the alleged errors. 
         </p>
         <figure>
           <img src="assets/images/case-study/endless-logs.jpg" class="case-study-image" />
@@ -256,7 +252,7 @@
         </p>
         <br>
         <p>
-          For Oliver, it's important that his own application is decoupled from the telemetry system so that both components are able to operate independently of one another. It's common practice today to implement a telemetry generating emitter through the form of an SDK. OpenTelemetry is an example of a leading developer tool kit that could be implemented to generate and emit telemetry data. We'll discuss OpenTelemetry in greater depth later on.
+          For Oliver, it's important that his own application is decoupled from the telemetry system so that both components are able to operate independently of one another. It's common practice today to implement a telemetry generating emitter through the form of an SDK. <span class="bold">OpenTelemetry is an example of a leading developer tool kit that could be implemented to generate and emit telemetry data.</span>We'll discuss OpenTelemetry in greater depth later on.
         </p>
         <figure>
           <img src="assets/images/case-study/emitting.png" class="case-study-image small" />
@@ -327,7 +323,7 @@
         <br />
         <h3>3.2 DIY</h3>
         <p>
-          Because Oliver wants something simpler and custom to their needs, he’s left with a DIY via Open Source approach. He has a plethora of options for how to stitch it all together: OpenTelemetry, Jaeger, Zipkin, Prometheus, Grafana, etc. Then he has a long list of questions to research:
+          Because Oliver wants something simpler and custom to their needs, he’s left with a DIY via Open Source approach. He can essentially piece together an observability platform by creating a telemetry pipeline. He has a plethora of options for how to stitch it all together: OpenTelemetry, Jaeger, Zipkin, Prometheus, Grafana, etc. Then he has a long list of questions to research:
         </p>
         <ul>
           <li>What does each of these tools do?</li>
@@ -395,11 +391,11 @@
         </p>
         <br />
         <p>
-          An additional key benefit of Horus is giving the user complete ownership over their data. Using a dockerized Timescale instance, there is no storage time limit or implicit cost involved in storing the user’s telemetry data, contrasting most SaaS monitoring solutions. Horus takes out the configuration and formatting headache of storing telemetry data whilst still remaining totally free and under the user’s control. The cost of storing data is completely dependent on where it’s hosted, and the user can decide what works best for them.
+          An additional key benefit of Horus is giving the user complete ownership over their data. Using a Dockerized Timescale instance, there is no storage time limit or implicit cost involved in storing the user’s telemetry data, contrasting most SaaS monitoring solutions. Horus takes out the configuration and formatting headache of storing telemetry data whilst still remaining totally free and under the user’s control. The cost of storing data is completely dependent on where it’s hosted, and the user can decide what works best for them.
         </p>
         <br />
         <p>
-          The docker network also contains an interactive visualization layer that automatically graphs the incoming metrics the application generates. 
+          The Docker network also contains an interactive visualization layer that automatically graphs the incoming metrics the application generates. 
         </p>
         <br>
         <p>
@@ -420,11 +416,7 @@
         </p>
         <br>
         <p>
-          Horus removes the complexity and provides the user with everything they need to get going from the outset. The user can flow seamlessly between metrics and traces in a natural and intuitive way, simply by clicking on the graph and being taken directly to the traces that occurred in that time window. 
-        </p>
-        <br>
-        <p>
-          Want more information on a particular trace? Just click the trace you’re interested in and you’ll be directed to a waterfall chart where you can compare each of the spans and get any further details you require. 
+          Horus streamlines the user experience, providing all that they need to get going from the outset. The user can flow seamlessly between metrics and traces by clicking on the graph and being taken directly to the traces that occurred in that time window. 
         </p>
         <figure>
           <img src="assets/images/case-study/gif-of-UI-2.gif" class="case-study-image" />
@@ -432,8 +424,7 @@
         </figure>
         <br>
         <p>
-          Horus provides a simple, elegant, and intuitive experience to navigate data while keeping the time cost to set up at an absolute minimum. Horus also comes with a rich set of detailed instructions and documentation to get you up and running.  
-        </p>
+          Horus allows Oliver to set up an open-source telemetry pipeline by automating the manual work. He gets the benefits of a DIY solution, but without the hours of work it would require. 
         <br>
         <h3>4.2 Horus and Evo T-Shirts</h3>
         <p>
@@ -465,7 +456,7 @@
         </figure>
         <br>
         <p>
-          Many open-source options start directly after this stage. Their documentation points the user to OpenTelemetry documentation and has them set it up themselves. We saw this stage as imperative to automate and simplify for two main reasons. First, OpenTelemetry is difficult to use and understand for a newcomer to this sphere. As it’s still an emerging technology, the documentation for it is somewhat sparse. Thus, it is difficult to make it work without significant trial and error. 
+          Many open-source solutions start directly <i>after</i> the emitting stage. These solutions point the user to OpenTelemetry and have them set it up themselves. We saw the emitting stage as imperative to automate and simplify for two main reasons. First, OpenTelemetry is difficult to use and understand for a newcomer to this sphere. As it’s still an emerging technology, the documentation for it is somewhat sparse. Thus, it is difficult to make it work without significant trial and error. 
         </p>
         <br>
         <p>
@@ -497,11 +488,7 @@
         </p>
         <br>
         <p>
-          Lastly, OpenTelemetry is quickly becoming the standard in the software industry for telemetry data, so it was a good technology to learn.
-        </p>
-        <br>
-        <p>
-          The main disadvantage of OpenTelemetry is its novelty. Because it is a project rapidly growing and expanding, the documentation can sometimes be confusing or downright nonexistent. However, as mentioned before, this problem is solved from the user’s perspective thanks to the development of the npm package <code>horus-agent</code>, which extracts away the complexity.
+          The main disadvantage of OpenTelemetry is its novelty. Because it is a project rapidly growing and expanding, the documentation can sometimes be confusing or downright nonexistent.
         </p>
         <br>
         <h4>5.2 Connector</h4>
@@ -513,7 +500,7 @@
         </figure>
         <br>
         <p>
-          When using OpenTelemetry, it’s common to have an OpenTelemetry Collector. However, we decided to forego it completely. One of its main purposes is to ingest telemetry data from different sources (such as Prometheus and Jaeger) and then transform it into a common format. Since we used OpenTelemetry exclusively, this was unnecessary.
+          When using OpenTelemetry, it’s common to have an OpenTelemetry Collector. A Collector is a central location (a server) to send all exported telemetry data. Once there, the data can then be processed, formatted, and batch exported to the next stage of the telemetry pipeline. However, we decided to forego it completely. One of its main purposes is to ingest telemetry data from different sources (such as Prometheus and Jaeger) and then transform it into a common format. Since we used OpenTelemetry exclusively, a Collector was unnecessary.
         </p>
         <br>
         <h4>5.3 Database</h4>
@@ -522,13 +509,13 @@
         </p>
         <br>
         <p>
-          Time-series databases are also ideal when appending frequent and large amounts of data, but not modifying/deleting it. This is exactly what our use case is since when a metric or trace is created, there is no need to ever modify it.
+          Time-series databases are ideal for a high-rate of inserts and a low-rate of modifications and deletions. This is exactly what our use case is since when a metric or trace is created, there is no need to ever modify it.
         </p>
         <figure>
           <img src="assets/images/case-study/database.png" class="case-study-image" />
         </figure>
         <p>
-          We chose to use Timescale specifically, which is based on PostgreSQL, and is also one of the most popular open-source object-relational database systems. The proven maturity and high performance of Timescale and PostgreSQL made it a natural choice.
+          We chose to use Timescale specifically, which is a leader in efficient storage and fast queries for large amounts of data. Built on PostgreSQL, it also provides the familiarity of SQL as the query language. Furthermore, PostgreSQL stands on over 25 years of excellent engineering work; Timescale expands PostgreSQL through performance optimizations and lower cost due to data compressions. In short, the maturity and high performance of Timescale made it a natural choice.
         </p>
         <br>
         <h4>5.4 UI</h4>
@@ -650,11 +637,11 @@
         <br>
         <h5>UI Querying</h5>
         <p>
-          Some tools, such as Docker and PostgreSQL, default to the UTC timezone. Other technology, however, defaults to the browser which defaults to the local machine’s timezone. Nivo graphs fall into the latter category. 
+          Some tools, such as Docker and PostgreSQL, default to the UTC timezone. Other technology, however, defaults to the browser which defaults to the local machine’s timezone. Nivo falls into the latter category. 
         </p>
         <br>
         <p>
-          Nivo graphs are a key part of the Horus UI because these graphs are the main substance of the front page — which is all of the metrics. Although the metric data point timestamps were in UTC (in the database), the Nivo graph would convert it to the host machine’s time zone when displaying them. This worked fine for one of the creators of Horus living in England (GMT matches UTC timezone), but it did not work for any of his colleagues. 
+          Nivo, a data visualization library for React, is a key part of the Horus UI because these graphs are the main substance of the front page — which is all of the metrics. Although the metric data point timestamps were in UTC (in the database), the Nivo graph would convert it to the host machine’s time zone when displaying them. This worked fine for one of the creators of Horus living in England (GMT matches UTC timezone), but it did not work for any of his colleagues. 
         </p>
         <br>
         <p>
@@ -719,7 +706,7 @@
         </figure>
         <br>
         <p>
-          Going down this route had several advantages. First, we could be faithful to our system’s architecture. By configuring our connector component to receive data, format it, and store it in a single database, we would be able to remove several unnecessary components from our infrastructure. This would reduce the overall complexity and mitigate points of failure. We would rely on the frontend’s querying service to retrieve the data it needed from the database, format it to be interpreted by our graphical and visual components, and then pass it to our frontend to be rendered on our application interface. 
+          Going down this route had several advantages. First, we could be faithful to our system’s architecture. By configuring our connector component to receive data, format it, and store it in a single database, we would be able to remove several unnecessary components from our infrastructure. This would reduce the overall complexity, and it would mitigate points of failure and possible time asynchronicity issues. We would rely on the frontend’s querying service to retrieve the data it needed from the database, format it to be interpreted by our graphical and visual components, and then pass it to our frontend to be rendered on our application interface. 
         </p>
         <br>
         <p>
@@ -735,7 +722,7 @@
         </p>
         <br>
         <p>
-          After discussing and evaluating our options, we came to the conclusion that keeping the architecture as straightforward and lightweight as possible was essential to meeting our use case. Moreover, the autonomy and control gained by producing our own user interface was in itself worth the engineering effort and energy. We would have greater say in how our user would interact with our application and again further fulfill the requirements of the user in our use case. In hindsight, we are grateful for that decision and it was worth it.
+          After discussing and evaluating our options, we came to the conclusion that keeping the architecture as straightforward and lightweight as possible was essential to meeting our use case.
         </p>
         <figure>
           <img src="assets/images/case-study/ui-overview.gif" class="case-study-image" />
