@@ -252,7 +252,7 @@
         </p>
         <br>
         <p>
-          For Oliver, it's important that his own application is decoupled from the telemetry system so that both components are able to operate independently of one another. It's common practice today to implement a telemetry generating emitter through the form of an SDK. <span class="bold">OpenTelemetry is an example of a leading developer tool kit that could be implemented to generate and emit telemetry data.</span>We'll discuss OpenTelemetry in greater depth later on.
+          For Oliver, it's important that his own application is decoupled from the telemetry system so that both components are able to operate independently of one another. It's common practice today to implement a telemetry generating emitter through the form of an SDK. <span class="bold">OpenTelemetry is an example of a leading developer tool kit that could be implemented to generate and emit telemetry data.</span> We'll discuss OpenTelemetry in greater depth later on.
         </p>
         <figure>
           <img src="assets/images/case-study/emitting.png" class="case-study-image x-small" />
@@ -469,7 +469,7 @@
         <br>
         <h5>OpenTelemetry</h5>
         <p>
-          We chose OpenTelemetry as our instrumentation and telemetry data type primarily because we wanted a singular tool for generating both metrics and trace. Some tools only generate traces (Jaeger, Zipkin) whereas other tools only generate metrics (Prometheus). 
+          We chose OpenTelemetry as our instrumentation and telemetry data type primarily because we wanted a singular tool for generating both metrics and trace. Some tools only generate traces (Jaeger, Zipkin) whereas other tools only generate metrics (Prometheus).<sup>3</sup>
         </p>
         <br>
         <p>
@@ -515,7 +515,7 @@
           <img src="assets/images/case-study/database.png" class="case-study-image" />
         </figure>
         <p>
-          We chose to use Timescale specifically, which is a leader in efficient storage and fast queries for large amounts of data. Built on PostgreSQL, it also provides the familiarity of SQL as the query language. Furthermore, PostgreSQL stands on over 25 years of excellent engineering work; Timescale expands PostgreSQL through performance optimizations and lower cost due to data compressions. In short, the maturity and high performance of Timescale made it a natural choice.
+          We chose to use Timescale specifically, which is a leader in efficient storage and fast queries for large amounts of data. Built on PostgreSQL, it also provides the familiarity of SQL as the query language. Furthermore, PostgreSQL stands on over 25 years of excellent engineering work; Timescale expands PostgreSQL through performance optimizations and lower cost due to data compressions. In short, the maturity and high performance of Timescale made it a natural choice.<sup>4</sup>
         </p>
         <br>
         <h4>5.4 UI</h4>
@@ -797,6 +797,8 @@
         <ol>
           <li class="reference"> https://en.wikipedia.org/wiki/Telemetry </li>
           <li class="reference"> Software Telemetry, Jamie Riedesel, 2021</li>
+          <li class="reference"> https://signoz.io/blog/jaeger-vs-prometheus/</li>
+          <li class="reference"> https://blog.timescale.com/blog/timescaledb-vs-influxdb-for-time-series-data-timescale-influx-sql-nosql-36489299877/</li>
           <li class="reference"> https://devinterrupted.com/opentelemetry-a-way-to-achieve-observability/ </li>
           <li class="reference"> https://lightstep.com/observability/#benefits-of-observability </li>
           <li class="reference"> https://opentelemetry.io/docs/concepts/what-is-opentelemetry/</li>
