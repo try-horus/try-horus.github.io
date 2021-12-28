@@ -16,7 +16,7 @@ body {
   font-family: Arial, sans-serif;
   font-size: 14px;
   line-height: 20px;
-  color: #333;
+  color: #333333;
 }
 
 menu,
@@ -97,6 +97,7 @@ figcaption {
   text-align: center;
   margin-top: 10px;
   font-style: italic;
+  font-size: 16px;
 }
 
 #sidebar {
@@ -1404,7 +1405,7 @@ a:hover {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  margin-left: 30px;
+  margin-left: 12px;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -ms-flex-align: center;
@@ -1526,7 +1527,7 @@ a:hover {
   }
 
   .link-block {
-    width: 108px;
+    white-space: nowrap;
   }
 
   h1 {
@@ -1997,7 +1998,7 @@ code {
 }
 
 .reference {
-  color: #b5bbbf;
+  color: #333333;
   font-style: italic;
   padding-top: 30px;
 }
