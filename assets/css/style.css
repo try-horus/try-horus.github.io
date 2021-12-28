@@ -847,7 +847,7 @@ a:hover {
 }
 
 .header {
-  padding-top: 105px;
+  padding-top: 40px;
 }
 
 .section._404 {
@@ -943,13 +943,14 @@ a:hover {
 }
 
 .white-paragraph {
-  color: #b5bbbf;
+  /* color: #b5bbbf; */
+  color: #595959;
   font-weight: 400;
   text-align: justify;
 }
 
 .intro-paragraph {
-  margin-top: 40px;
+  margin-top: 30px;
 }
 
 #intro-paragraph-2 {
@@ -1584,9 +1585,7 @@ a:hover {
   .white-paragraph {
     /*    font-size: 17px*/
   }
-  .white-paragraph.bottom-margin {
-    margin-bottom: 30px;
-  }
+
   .white-h2 {
     margin-top: 0;
     font-size: 36px;
@@ -1741,7 +1740,7 @@ a:hover {
     height: 30px;
   }
   .tab-container {
-    grid-row-gap: 50px;
+    grid-row-gap: 24px;
     -ms-grid-columns: 1fr;
     grid-template-columns: 1fr;
     -ms-grid-rows: auto auto;
@@ -1905,9 +1904,7 @@ a:hover {
   .white-paragraph {
     font-size: 14px;
   }
-  .white-paragraph.bottom-margin {
-    margin-bottom: 20px;
-  }
+
   .white-h2 {
     font-size: 27px;
   }
